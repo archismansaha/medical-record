@@ -5,6 +5,7 @@ import plus_logo from "../../assets/img/dashboard/add2_pbl.png";
 import minus_logo from "../../assets/img/dashboard/minus2_pbl.png";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
+import axios from "axios"
 
 export default function Register(props) {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function Register(props) {
     if (patient.password === confirmPassword) {
       setLoading(true);
       e.preventDefault();
-      const res = await fetch("/register/patient", {
+      const res = await axios.post("http://localhost:5000/register/patient", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

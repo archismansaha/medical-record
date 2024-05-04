@@ -18,9 +18,14 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-const dbURI = process.env.DATABASE;
+const dbURI = "mongodb://localhost:27017/medical-store";
 const port = process.env.PORT || 5000;
-
+app.use(authRoutes);
+app.use(registerRoute);
+app.use(doctorRoute);
+app.use(patientRoutes);
+app.use(adminRoutes);
+app.use(logoutRoute);
 mongoose
   .connect(dbURI)
   .then((result) => {
@@ -36,12 +41,7 @@ mongoose
     });
   });
 
-app.use(authRoutes);
-app.use(registerRoute);
-app.use(doctorRoute);
-app.use(patientRoutes);
-app.use(adminRoutes);
-app.use(logoutRoute);
+
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));

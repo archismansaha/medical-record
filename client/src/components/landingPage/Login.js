@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import profile from "../../assets/img/landingPage/profile.png";
 import ReactLoading from "react-loading";
+import axios from "axios";
 export default function Login(props) {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
@@ -12,26 +13,27 @@ export default function Login(props) {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  useEffect(() => {
-    const auth = async () => {
-      const res = await fetch("/auth");
-      const data = await res.json();
-      if (data.msg === "Doctor Login Found") {
-        navigate("/doctor/dashboard");
-      }
-      if (data.msg === "Admin Login Found") {
-        navigate("/admin/dashboard");
-      }
-      if (data.msg === "Patient Login Found") {
-        navigate("/patient/dashboard");
-      }
-    };
-    auth();
-  });
+  // useEffect(() => {
+  //   const auth = async () => {
+  //     const res = await axios.post("http://localhost:5000/login/patient");
+  //     const data = await res.json();
+  //     if (data.msg === "Doctor Login Found") {
+  //       navigate("/doctor/dashboard");
+  //     }
+  //     if (data.msg === "Admin Login Found") {
+  //       navigate("/admin/dashboard");
+  //     }
+  //     if (data.msg === "Patient Login Found") {
+  //       navigate("/patient/dashboard");
+  //     }
+  //   };
+  //   auth();
+  // });
 
   const handlePatientLogin = async (healthID, password) => {
     setLoading(true);
-    const res = await fetch("/login/patient", {
+    console.log("Patient Login", healthID, password);
+    const res = await fetch("http://localhost:5000/login/patient", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +63,7 @@ export default function Login(props) {
 
   const handleDoctorAdminLogin = async (email, password, path) => {
     setLoading(true);
-    const res = await fetch(path, {
+    const res = await fetch("http://localhost:5000"+path, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

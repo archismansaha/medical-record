@@ -59,7 +59,7 @@ const DoctorDashboard = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const res = await fetch("/getdoctor");
+      const res = await fetch("http://localhost:5000"+"/getdoctor");
       const data = await res.json();
       if (data.AuthError) {
         props.settoastCondition({
@@ -74,8 +74,8 @@ const DoctorDashboard = (props) => {
     }
     async function getpatient() {
       setLoading(true);
-      if (props.healthID.length === 12) {
-        const res = await fetch(`/searchpatient/${props.healthID}`);
+      if (props.healthID.length >1) {
+        const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`);
         const data = await res.json();
 
         if (data.AuthError) {
@@ -94,6 +94,7 @@ const DoctorDashboard = (props) => {
           });
           props.setToastShow(true);
         } else {
+          console.log(patient)
           setPatient(data.patient);
           if (data.patient.prescriptions) {
             setPrescriptions(data.patient.prescriptions.reverse());

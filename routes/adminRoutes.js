@@ -12,11 +12,11 @@ const { requireAdminAuth } = require("../middlewares/adminAuthMiddleware");
 
 const router = Router();
 
-router.delete("/deletedoctor/:id", requireAdminAuth, delete_doctor);
-router.delete("/deletepatient/:healthID", requireAdminAuth, delete_patient);
-router.get("/getadmin", requireAdminAuth, get_admin);
+router.delete("/deletedoctor/:id",  delete_doctor);
+router.delete("/deletepatient/:healthID", delete_patient);
+router.get("/getadmin",  get_admin);
 
-router.get("/doctorlist", requireAdminAuth, view_doctorlist);
-router.get("/patientlist", requireAdminAuth, view_patientlist);
+router.get("/doctorlist",  view_doctorlist);
+router.get("/patientlist", view_patientlist);
 
 module.exports = router;

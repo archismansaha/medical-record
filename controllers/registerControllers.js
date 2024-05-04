@@ -33,7 +33,8 @@ const handleError = (err) => {
 };
 
 module.exports.patient_register = async (req, res) => {
-  const diseases = Object.values(req.body.diseases);
+  console.log("Registering Patient")
+  const diseases = (req.body.diseases);
   const {
     name,
     dob,
@@ -61,11 +62,13 @@ module.exports.patient_register = async (req, res) => {
       diseases,
       contactPerson,
     });
+    console.log("HERE")
     const token = createToken(patient._id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).json({ patient });
   } catch (err) {
-    const errors = handleError(err);
+    //console.log(err)
+    // const errors = handleError(err);
     res.status(404).json({ errors });
   }
 };
@@ -73,6 +76,7 @@ module.exports.patient_register = async (req, res) => {
 module.exports.patient_login = async (req, res) => {
   const { healthID, password } = req.body;
   try {
+    console.log("LOGIN",req.body)
     const patient = await Patient.login(healthID, password);
     const token = createToken(patient._id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });

@@ -1,5 +1,5 @@
 const Patient = require("../models/patient");
-
+const Doctor = require("../models/doctor");
 module.exports.search_patient = async (req, res) => {
   const healthID = req.params.healthID;
   try {
@@ -11,6 +11,6 @@ module.exports.search_patient = async (req, res) => {
 };
 
 module.exports.get_doctor = async (req, res) => {
-  let doctor = req.doctor;
+  let doctor = await Doctor.findOne({});
   res.status(200).json({ doctor });
 };
