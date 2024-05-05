@@ -18,7 +18,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-const dbURI = "mongodb://localhost:27017/medical-store";
+const dbURI = "mongodb+srv://rajdeep12:rajdeep12@cluster0.j1ja8e1.mongodb.net/medace";
 const port = process.env.PORT || 5000;
 app.use(authRoutes);
 app.use(registerRoute);

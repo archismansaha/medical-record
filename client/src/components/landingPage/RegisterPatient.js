@@ -65,22 +65,22 @@ export default function Register(props) {
     },
   });
 
-  useEffect(() => {
-    const auth = async () => {
-      const res = await fetch("/auth");
-      const data = await res.json();
-      if (data.msg === "Doctor Login Found") {
-        navigate("/doctor/dashboard");
-      }
-      if (data.msg === "Admin Login Found") {
-        navigate("/admin/dashboard");
-      }
-      if (data.msg === "Patient Login Found") {
-        navigate("/patient/dashboard");
-      }
-    };
-    auth();
-  });
+  // useEffect(() => {
+  //   const auth = async () => {
+  //     const res = await fetch("/auth");
+  //     const data = await res.json();
+  //     if (data.msg === "Doctor Login Found") {
+  //       navigate("/doctor/dashboard");
+  //     }
+  //     if (data.msg === "Admin Login Found") {
+  //       navigate("/admin/dashboard");
+  //     }
+  //     if (data.msg === "Patient Login Found") {
+  //       navigate("/patient/dashboard");
+  //     }
+  //   };
+  //   auth();
+  // });
 
   const handleRegisterPatient = async (e) => {
     e.preventDefault();
@@ -88,7 +88,7 @@ export default function Register(props) {
     if (patient.password === confirmPassword) {
       setLoading(true);
       e.preventDefault();
-      const res = await axios.post("http://localhost:5000/register/patient", {
+      const res = await fetch("http://localhost:5000/register/patient", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -195,7 +195,6 @@ export default function Register(props) {
                 </div>
                 <input
                   className="bg-blue-100 rounded lg:h-10 lg:pl-4 mt-4 lg:text-md text-sm h-8 px-2"
-                  required
                   placeholder="middle name"
                   value={patient.name.middleName}
                   onChange={(e) => {
@@ -206,7 +205,6 @@ export default function Register(props) {
                 ></input>
                 <input
                   className="bg-blue-100 rounded lg:h-10 lg:pl-4 mt-4 lg:text-md text-sm h-8 px-2"
-                  required
                   placeholder="last name"
                   value={patient.name.surName}
                   onChange={(e) => {
@@ -238,7 +236,6 @@ export default function Register(props) {
                 <input
                   type="tel"
                   placeholder="mobile no."
-                  required
                   className="pl-4 bg-blue-100 lg:h-10  rounded h-8"
                   value={patient.mobile}
                   onChange={(e) => {
@@ -337,7 +334,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 lg:h-10  rounded pl-4 h-8 "
-                    required
                     placeholder="village/city"
                     value={patient.address.city}
                     onChange={(e) => {
@@ -349,7 +345,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 lg:h-10  rounded  pl-4 h-8"
-                    required
                     placeholder="Taluka"
                     value={patient.address.taluka}
                     onChange={(e) => {
@@ -361,7 +356,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 lg:h-10  rounded  pl-4 h-8"
-                    required
                     placeholder="District"
                     value={patient.address.district}
                     onChange={(e) => {
@@ -373,7 +367,6 @@ export default function Register(props) {
                   <input
                     type="number"
                     className="bg-blue-100 lg:h-10  rounded  pl-4 h-8"
-                    required
                     placeholder="Pin-code"
                     value={patient.address.pincode}
                     onChange={(e) => {
@@ -541,7 +534,6 @@ export default function Register(props) {
                 <input
                   type="tel"
                   placeholder="mobile no."
-                  required
                   className="pl-4 bg-blue-100 lg:h-10  rounded h-8"
                   value={patient.contactPerson.mobile}
                   onChange={(e) => {
@@ -604,7 +596,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 h-10  rounded pl-4 "
-                    required
                     placeholder="village/city"
                     value={patient.contactPerson.address.city}
                     onChange={(e) => {
@@ -616,7 +607,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 h-10  rounded  pl-4"
-                    required
                     placeholder="Taluka"
                     value={patient.contactPerson.address.taluka}
                     onChange={(e) => {
@@ -628,7 +618,6 @@ export default function Register(props) {
                   <input
                     type="text"
                     className="bg-blue-100 h-10  rounded  pl-4"
-                    required
                     placeholder="District"
                     value={patient.contactPerson.address.district}
                     onChange={(e) => {
@@ -641,7 +630,6 @@ export default function Register(props) {
                   <input
                     type="number"
                     className="bg-blue-100 h-10  rounded  pl-4"
-                    required
                     placeholder="Pin-code"
                     value={patient.contactPerson.address.pincode}
                     onChange={(e) => {
