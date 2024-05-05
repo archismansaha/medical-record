@@ -10,7 +10,7 @@ const doctorSchema = new mongoose.Schema({
     },
     middleName: {
       type: String,
-      required: [true, "Please enter full Name"],
+      required: [false, "Please enter full Name"],
     },
     surName: {
       type: String,
@@ -28,23 +28,23 @@ const doctorSchema = new mongoose.Schema({
     },
     city: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     taluka: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     district: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     state: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     pincode: {
       type: Number,
-      required: [true, "Please Enter complete Address of contact person"],
+      required: [false, "Please Enter complete Address of contact person"],
     },
   },
   dob: {
@@ -82,7 +82,7 @@ const doctorSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter password"],
-    minlength: [8, "Minimum length of password should must be 8 characters"],
+    minlength: [3, "Minimum length of password should must be 3 characters"],
   },
   address: {
     building: {
@@ -91,23 +91,23 @@ const doctorSchema = new mongoose.Schema({
     },
     city: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     taluka: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     district: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     state: {
       type: String,
-      required: [true, "Please enter complete Address of contact person"],
+      required: [false, "Please enter complete Address of contact person"],
     },
     pincode: {
       type: Number,
-      required: [true, "Please Enter complete Address of contact person"],
+      required: [false, "Please Enter complete Address of contact person"],
     },
   },
   specialization: [
@@ -119,7 +119,7 @@ const doctorSchema = new mongoose.Schema({
   ],
   emergencyno: {
     type: String,
-    required: [true, "Please enter Mobile Number"],
+    required: [false, "Please enter Mobile Number"],
     minlength: [10, "Please Enter a valid Mobile Number"],
   },
   orgNumber: {

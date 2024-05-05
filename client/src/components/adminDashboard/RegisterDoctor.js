@@ -5,7 +5,10 @@ import minus_logo from "../../assets/img/dashboard/minus2_pbl.png";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 
+
 export default function Register(props) {
+  const apiUrl = 'http://localhost:5000'
+
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -66,7 +69,7 @@ export default function Register(props) {
     setPasswordError("");
     if (doctor.password === confirmPassword) {
       setLoading(true);
-      const res = await fetch("/register/doctor", {
+      const res = await fetch(`${apiUrl}/register/doctor`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +144,6 @@ export default function Register(props) {
               ></input>
               <input
                 class="bg-blue-100 rounded h-10 pl-4 mt-4"
-                required
                 placeholder="middle name"
                 value={doctor.name.middleName}
                 onChange={(e) => {
@@ -217,7 +219,6 @@ export default function Register(props) {
               <input
                 type="tel"
                 placeholder="emergency contact no."
-                required
                 class="pl-4 bg-blue-100 h-10  rounded"
                 value={doctor.emergencyno}
                 onChange={(e) => {
@@ -290,7 +291,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded pl-4 "
-                  required
                   placeholder="village/city"
                   value={doctor.address.city}
                   onChange={(e) => {
@@ -302,7 +302,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded pl-4"
-                  required
                   placeholder="Taluka"
                   value={doctor.address.taluka}
                   onChange={(e) => {
@@ -314,7 +313,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded  pl-4"
-                  required
                   placeholder="District"
                   value={doctor.address.district}
                   onChange={(e) => {
@@ -326,7 +324,6 @@ export default function Register(props) {
                 <input
                   type="number"
                   className="bg-blue-100 h-10  rounded  pl-4"
-                  required
                   placeholder="Pin-code"
                   value={doctor.address.pincode}
                   onChange={(e) => {
@@ -512,7 +509,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded pl-4 "
-                  required
                   placeholder="village/city"
                   value={doctor.orgAddress.city}
                   onChange={(e) => {
@@ -524,7 +520,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded pl-4"
-                  required
                   placeholder="Taluka"
                   value={doctor.orgAddress.taluka}
                   onChange={(e) => {
@@ -536,7 +531,6 @@ export default function Register(props) {
                 <input
                   type="text"
                   class="bg-blue-100 h-10  rounded  pl-4"
-                  required
                   placeholder="District"
                   value={doctor.orgAddress.district}
                   onChange={(e) => {
@@ -548,7 +542,6 @@ export default function Register(props) {
                 <input
                   type="number"
                   className="bg-blue-100 h-10  rounded  pl-4"
-                  required
                   placeholder="Pin-code"
                   value={doctor.orgAddress.pincode}
                   onChange={(e) => {

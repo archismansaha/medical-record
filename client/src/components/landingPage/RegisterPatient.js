@@ -236,6 +236,7 @@ export default function Register(props) {
                 <input
                   type="tel"
                   placeholder="mobile no."
+                  required
                   className="pl-4 bg-blue-100 lg:h-10  rounded h-8"
                   value={patient.mobile}
                   onChange={(e) => {

@@ -28,7 +28,7 @@ const patientSchema = new mongoose.Schema({
   },
   mobile: {
     type: String,
-    required: false
+    required: true
   },
   email: {
     type: String,

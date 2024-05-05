@@ -1,6 +1,7 @@
 const Doctor = require("../models/doctor");
 const { createToken } = require("../utils/createToken");
 const maxAge = 3 * 24 * 60 * 60;
+
 module.exports.doctor_register = async (req, res) => {
   const education = Object.values(req.body.education);
   const specialization = Object.values(req.body.specialization);
@@ -38,6 +39,7 @@ module.exports.doctor_register = async (req, res) => {
 
     res.status(200).json({ doctor });
   } catch (err) {
+    console.log("Error in registering doctor", err)
     res.status(404).json({ err });
   }
 };
