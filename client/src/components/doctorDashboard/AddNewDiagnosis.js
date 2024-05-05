@@ -111,6 +111,9 @@ const AddNewDiagnosis = (props) => {
 
   const handleAddPrescription = async (e) => {
     e.preventDefault();
+    // console.log(prescription);
+    // console.log('Patient ID:', props.healthID);
+    
     setLoading(true);
     const res = await fetch(`http://localhost:5000/prescription/${props.healthID}`, {
       method: "POST",

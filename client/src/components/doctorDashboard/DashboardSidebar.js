@@ -6,6 +6,7 @@ import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import logoutimg from "../../assets/img/dashboard/logout.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 const DashboardSidebar = (props) => {
   const navigate = useNavigate();
   const logout = async () => {

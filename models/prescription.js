@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 
-const handleError = (err) => {
-  let errors = {};
+// const handleError = (err) => {
+//   let errors = {};
 
-  if (err.message.includes("prescription validation failed")) {
-    let errorsarray = Object.values(err.errors);
-    errorsarray.forEach(({ properties }) => {
-      errors[properties.path] = properties.message;
-    });
-  }
-  return errors;
-};
+//   if (err.message.includes("prescription validation failed")) {
+//     let errorsarray = Object.values(err.errors);
+//     errorsarray.forEach(({ properties }) => {
+//       errors[properties.path] = properties.message;
+//     });
+//   }
+//   return errors;
+// };
 
 const prescriptionSchema = new mongoose.Schema(
   {

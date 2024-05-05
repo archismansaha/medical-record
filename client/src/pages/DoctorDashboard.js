@@ -7,7 +7,11 @@ import eye from "../assets/img/dashboard/eye.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
+
+
 const DoctorDashboard = (props) => {
+  const apiUrl = "http://localhost:5000";
+
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [dob, setDob] = useState("01/01/2006");
@@ -78,6 +82,10 @@ const DoctorDashboard = (props) => {
         const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`);
         const data = await res.json();
 
+        if (data.patient.prescriptions) {
+          setPrescriptions(data.patient.prescriptions.reverse());
+        }
+
         if (data.AuthError) {
           setLoading(false);
           props.settoastCondition({
@@ -96,12 +104,10 @@ const DoctorDashboard = (props) => {
         } else {
           console.log(patient)
           setPatient(data.patient);
-          if (data.patient.prescriptions) {
-            setPrescriptions(data.patient.prescriptions.reverse());
-          }
           setDob(convertDatetoString(patient.dob));
           setLoading(false);
         }
+        
       } else if (props.healthID.length === 0) {
         setLoading(false);
         setPatient({});
@@ -112,12 +118,18 @@ const DoctorDashboard = (props) => {
     getpatient();
   }, [dob]);
 
+
   const searchPatient = async (e) => {
     e.preventDefault();
-    if (props.healthID.length === 12) {
-      setLoading(true);
-      const res = await fetch(`/searchpatient/${props.healthID}`);
+    setLoading(true);
+    if (props.healthID.length >= 1) {
+      const res = await fetch(`${apiUrl}/searchpatient/${props.healthID}`);
       const data = await res.json();
+      // console.log(data);
+
+      if (data.prescriptions) {
+        setPrescriptions(data.prescriptions.reverse());
+      }
 
       if (data.AuthError) {
         setLoading(false);
@@ -136,12 +148,10 @@ const DoctorDashboard = (props) => {
         props.setToastShow(true);
       } else {
         setPatient(data.patient);
-        if (data.patient.prescriptions) {
-          setPrescriptions(data.patient.prescriptions.reverse());
-        }
         setDob(convertDatetoString(patient.dob));
         setLoading(false);
       }
+
     } else {
       props.settoastCondition({
         status: "warning",
@@ -155,6 +165,7 @@ const DoctorDashboard = (props) => {
     <div className="full-body col-span-10 h-screen">
       <div className="body-without-footer   bg-bgprimary ">
         <div className="main    m-2  ">
+
           {/* dashboard today start */}
           <div className="">
             <div className="flex  h-12 m-2 bg-bgprimary rounded mt-4 ">
@@ -164,6 +175,7 @@ const DoctorDashboard = (props) => {
                 </h1>
               </div>
 
+              {/* Upper Search Bar */}
               <div className="flex ml-20  h-10   ">
                 <input
                   placeholder="Search"
@@ -174,6 +186,7 @@ const DoctorDashboard = (props) => {
                 </div>
               </div>
 
+              {/* Doctor Profile Image */}
               <Link to="/doctor/profile">
                 <div className="flex bg-white rounded shadow  px-4  ml-60 h-14 ">
                   <img
@@ -199,6 +212,7 @@ const DoctorDashboard = (props) => {
           </div>
           {/* dashboard today end */}
 
+          {/* Search Patient With their id */}  
           <form
             onSubmit={searchPatient}
             className="grid grid-cols-9 bg-white rounded p-4 ml-12 mr-8 mt-4 shadow"
@@ -359,6 +373,7 @@ const DoctorDashboard = (props) => {
             </div>
           )}
 
+          {/* Patient Dashboard */}
           {Object.keys(patient).length !== 0 ? (
             <div className="font-poppins m-4  ">
               <div className="flex justify-between m-8">
@@ -395,7 +410,7 @@ const DoctorDashboard = (props) => {
                   </div>
 
                   {prescriptions.length > 0 ? (
-                    prescriptions.slice(1, 3).map((prescription) => {
+                    prescriptions.slice(0, 3).map((prescription) => {
                       return (
                         <div className="grid grid-cols-4">
                           <div>
@@ -441,6 +456,7 @@ const DoctorDashboard = (props) => {
           )}
         </div>
       </div>
+
       <div className="mt-16 mb-0">
         <Footer></Footer>
       </div>

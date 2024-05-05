@@ -11,6 +11,7 @@ module.exports.add_prescription = async (req, res) => {
   const procedureConducted = req.body.procedureConducted.procedure;
   const { doctor, doctormobile, hospital } = req.body;
 
+
   try {
     const patient = await Patient.findOneAndUpdate(
       { healthID },
