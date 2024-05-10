@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv");
+require('dotenv').config();
 const { default: mongoose } = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const patientRoutes = require("./routes/patientRoutes");
@@ -11,7 +11,7 @@ const logoutRoute = require("./routes/logoutRoute");
 const cors = require("cors");
 const app = express();
 
-dotenv.config({ path: "./config.env" });
+// dotenv.config({ path: "./config.env" });
 
 // app.use(cors({ origin: "http://localhost:3000", credentials: true}));
 
@@ -36,7 +36,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-const dbURI = "mongodb+srv://rajdeep12:rajdeep12@cluster0.j1ja8e1.mongodb.net/medace";
+const dbURI = process.env.DATABASE_URL;
 const port = process.env.PORT || 5000;
 app.use(authRoutes);
 app.use(registerRoute);
