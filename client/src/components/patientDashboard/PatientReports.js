@@ -3,6 +3,8 @@ import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import PatientReportCompo from "./PatientReportCompo";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+const apiUrl = "http://localhost:5000";
+
 const PatientReports = (props) => {
   const navigate = useNavigate();
   const [dob, setDob] = useState("01/01/2006");
@@ -45,6 +47,7 @@ const PatientReports = (props) => {
       },
     },
   });
+
   const [prescriptions, setPrescriptions] = useState([{}]);
 
   const convertDatetoString = (dateString) => {
@@ -57,7 +60,7 @@ const PatientReports = (props) => {
 
   useEffect(() => {
     async function getpatient() {
-      const res = await fetch("/getpatient");
+      const res = await fetch(`${apiUrl}/getpatient`);
       const data = await res.json();
       if (data.AuthError) {
         props.settoastCondition({
@@ -76,6 +79,7 @@ const PatientReports = (props) => {
     }
     getpatient();
   }, [dob]);
+
   return (
     <div className="col-span-10">
       <div className=" px-12">

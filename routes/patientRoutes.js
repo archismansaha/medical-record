@@ -7,6 +7,6 @@ const { requirePatientAuth } = require("../middlewares/patientAuthMiddleware");
 const router = Router();
 
 router.get("/prescription/:id", preview_prescription);
-router.get("/getpatient",  get_patient);
+router.get("/getpatient", requirePatientAuth, get_patient);
 
 module.exports = router;

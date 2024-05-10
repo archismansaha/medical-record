@@ -13,7 +13,25 @@ const app = express();
 
 dotenv.config({ path: "./config.env" });
 
-app.use(cors());
+// app.use(cors({ origin: "http://localhost:3000", credentials: true}));
+
+const whitelist = ['http://localhost:3000', 'https://medium5.vercel.app', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:5176', 'http://localhost:8000']; //white list consumers
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+        }
+    },
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    credentials: true, //Credentials are cookies, authorization headers or TLS client certificates.
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'device-remember-token', 'Access-Control-Allow-Origin', 'Origin', 'Accept']
+};
+
+app.use(cors(corsOptions))
+
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
@@ -30,7 +48,7 @@ mongoose
   .connect(dbURI)
   .then((result) => {
     app.listen(port);
-    console.log("connected to db and listening at port 5000");
+    console.log("Connected to database and listening at port 5000");
   })
   .catch((err) => {
     app.listen(port);

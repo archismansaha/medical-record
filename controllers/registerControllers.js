@@ -47,7 +47,7 @@ module.exports.patient_register = async (req, res) => {
     contactPerson,
   } = req.body;
 
-  console.log('Patient Registering: ', req.body);
+  console.log("Patient Registering: ", req.body);
 
   const healthID = adharCard;
   try {
@@ -68,7 +68,7 @@ module.exports.patient_register = async (req, res) => {
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).json({ patient });
   } catch (err) {
-    console.log('Catch Error', err)
+    console.log("Catch Error", err);
     const errors = handleError(err);
     res.status(404).json({ errors });
   }
@@ -80,8 +80,20 @@ module.exports.patient_login = async (req, res) => {
     console.log("LOGIN", req.body);
     const patient = await Patient.login(healthID, password);
     const token = createToken(patient._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ patient });
+
+    // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie("jwt", token, {
+      maxAge: 840000, // 14 minutes
+      httpOnly: true,
+      // for https sites only
+      sameSite: "none",
+      secure: true,
+    });
+
+    req.headers.authorization = token;
+    
+    console.log("Jwt Token", token);
+    return res.status(200).json({ patient });
   } catch (err) {
     const errors = handleError(err);
     res.status(404).json({ errors });

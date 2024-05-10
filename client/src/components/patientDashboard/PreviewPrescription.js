@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import Footer from "../landingPage/Footer";
+import axios from "axios";
+// import { set } from "mongoose";
+const apiUrl = 'http://localhost:5000';
+
 const PreviewPrescription = (props) => {
   //   function printPrescription() {
   //     var mywindow = window.open("", "PRINT", "height=full,width=full");
@@ -58,6 +62,7 @@ const PreviewPrescription = (props) => {
     investigations: [{ investigation: "" }],
     advices: [{ advice: "" }],
   });
+
   const [patient, setPatient] = useState({
     name: {
       firstName: "",
@@ -73,31 +78,42 @@ const PreviewPrescription = (props) => {
       pincode: "",
     },
   });
+
   useEffect(() => {
-    async function fetchprescription() {
-      const res = await fetch(`/prescription/${props.prescriptionID}`);
-      const data = await res.json();
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to proceed!!!",
-        });
-        props.setToastShow(true);
-        navigate("/");
-      } else if (data.error) {
-        props.settoastCondition({
-          status: "error",
-          message: "Something went Wrong!!!",
-        });
-        props.setToastShow(true);
-        navigate("/patient/dashboard");
-      } else {
-        setPrescription(data.prescription[0]);
-      }
-    }
+    // async function fetchprescription() {
+    //   const res = await fetch(`${apiUrl}/prescription/${props.prescriptionID}`);
+    //   const data = await res.json();
+    //   console.log('Prescription Data: ', data)
+
+    //   if (data.AuthError) {
+    //     props.settoastCondition({
+    //       status: "info",
+    //       message: "Please Login to proceed!!!",
+    //     });
+    //     props.setToastShow(true);
+    //     navigate("/");
+    //   } else if (data.error) {
+    //     props.settoastCondition({
+    //       status: "error",
+    //       message: "Something went Wrong!!!",
+    //     });
+    //     props.setToastShow(true);
+    //     navigate("/patient/dashboard");
+    //   } else {
+    //     setPrescription(data.prescription[0]);
+    //   }
+    // }
+
     async function fetchpatient() {
-      const res = await fetch("/getpatient");
-      const data = await res.json();
+      // const res = await fetch(`${apiUrl}/getpatient`, {
+      //   withCredentials: true,
+      // });
+      // const data = await res.json();
+
+      const response = await axios.get(`${apiUrl}/getpatient`, {
+        withCredentials: true,
+      });
+      const data = response.data
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -107,12 +123,16 @@ const PreviewPrescription = (props) => {
         props.setToastShow(true);
         navigate("/");
       } else {
+        // Seting patient data and set the first prescription as default
         setPatient(data.patient);
+        setPrescription(data.patient.prescriptions[0]);
+        console.log(data.patient.prescriptions)
       }
     }
-    fetchprescription();
     fetchpatient();
+    // fetchprescription();
   }, []);
+
 
   return (
     <div
@@ -180,9 +200,9 @@ const PreviewPrescription = (props) => {
             <h1 className="ml-2 font-bold">clinincal findings</h1>
           </div>
 
-          {prescription.chiefComplaints.map((complaint) => {
+          {prescription.chiefComplaints.map((complaint, index) => {
             return (
-              <div className="grid grid-cols-2 justify-center ml-2 border-b-2 border-gray-400">
+              <div className="grid grid-cols-2 justify-center ml-2 border-b-2 border-gray-400" key={index}>
                 <h1>{`${complaint.complaint} (${complaint.duration} days)`}</h1>
                 <h1>{complaint.finding}</h1>
               </div>
@@ -207,9 +227,9 @@ const PreviewPrescription = (props) => {
             <h1 className="font-bold">Dosages</h1>
             <h1 className="font-bold">Duration</h1>
           </div>
-          {prescription.medicines.map((medicine) => {
+          {prescription.medicines.map((medicine, index) => {
             return (
-              <div className="grid grid-cols-3 border-b-2 border-gray-400">
+              <div className="grid grid-cols-3 border-b-2 border-gray-400" key={index}>
                 <div>
                   <h1>{medicine.medicineName}</h1>
                 </div>
@@ -244,16 +264,16 @@ const PreviewPrescription = (props) => {
         <div className="mt-4">
           <h1 className="font-bold">Insvestigations</h1>
           <div>
-            {prescription.investigations.map((investigation) => {
-              return <h3>{investigation.investigation}</h3>;
+            {prescription.investigations.map((investigation, index) => {
+              return <h3 key={index}>{investigation.investigation}</h3>;
             })}
           </div>
         </div>
         <div className="mb-2">
           <h1 className="font-bold">Advices</h1>
           <div>
-            {prescription.advices.map((advice) => {
-              return <h3>{advice.advice}</h3>;
+            {prescription.advices.map((advice, index) => {
+              return <h3 key={index}>{advice.advice}</h3>;
             })}
           </div>
         </div>

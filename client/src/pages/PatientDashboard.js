@@ -7,6 +7,8 @@ import Footer from "../components/landingPage/Footer";
 import eye from "../assets/img/dashboard/eye.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
+const apiUrl = "http://localhost:5000";
 
 const PatientDashboard = (props) => {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const PatientDashboard = (props) => {
       },
     },
   });
-  const [prescriptions, setPrescriptions] = useState([{}]);
+  const [prescriptions, setPrescriptions] = useState([]);
 
   const convertDatetoString = (dateString) => {
     let date = new Date(dateString);
@@ -60,10 +62,20 @@ const PatientDashboard = (props) => {
     let year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
   useEffect(() => {
     async function getpatient() {
-      const res = await fetch("/getpatient");
-      const data = await res.json();
+      // const res = await fetch(`${apiUrl}/getpatient`, {
+      //   includeCredentials: true,
+      // });
+      // const data = await res.json();
+
+      const response = await axios.get(`${apiUrl}/getpatient`, {
+        withCredentials: true,
+      });
+
+      const data = response.data
+
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -73,13 +85,15 @@ const PatientDashboard = (props) => {
         navigate("/");
       } else {
         setPatient(data.patient);
-        if (data.patient.prescriptions) {
-          setPrescriptions(data.patient.prescriptions.reverse());
-        }
+        setPrescriptions(data.patient.prescriptions);
       }
     }
     getpatient();
   }, [dob]);
+
+  if(prescriptions.length > 0) {
+    props.setPrescriptionID(prescriptions[0]._id);
+  }
 
   return (
     <div className="full-body col-span-10 h-screen">
@@ -193,9 +207,9 @@ const PatientDashboard = (props) => {
                   </div>
                   <Link
                     to="/patient/prescription"
-                    onClick={() => {
-                      props.setPrescriptionID(prescriptions[0]._id);
-                    }}
+                    // onClick={() => {
+                    //   props.setPrescriptionID(prescriptions[0]._id);
+                    // }}
                   >
                     <div className=" mt-2 flex items-center justify-evenly text-base bg-primary py-1 px-2 rounded font-semibold font-poppins shadow-sm hover:bg-bgsecondary w-5/12  ">
                       <img src={reports} className="h-4" alt="report"></img>

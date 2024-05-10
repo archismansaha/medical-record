@@ -32,19 +32,31 @@ export default function Login(props) {
 
   const handlePatientLogin = async (healthID, password) => {
     setLoading(true);
-    console.log("Patient Login", healthID, password);
-    const res = await fetch("http://localhost:5000/login/patient", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+
+    const data = await axios.post(
+      "http://localhost:5000/login/patient",
+      {
         healthID,
         password,
-      }),
-    });
+      },
+      {
+        withCredentials: true,
+        credentials: "include",
+        crossDomain: true,
+      }
+    );
 
-    const data = await res.json();
+    // {
+    //   // method: "POST",
+    //   // headers: {
+    //   //   "Content-Type": "application/json",
+    //   // },
+    //   // withCredentials: true,
+    //   // credentials: "include",
+    //   // crossDomain: true,
+    // };
+
+    // const data = await res.json();
 
     if (data.errors) {
       setUsernameError(data.errors.healthID);
@@ -52,6 +64,7 @@ export default function Login(props) {
       setLoading(false);
     } else {
       setLoading(false);
+      console.log("Getting data after login ", data.data);
       props.settoastCondition({
         status: "success",
         message: "Logged in Successfully!!!",
@@ -63,7 +76,7 @@ export default function Login(props) {
 
   const handleDoctorAdminLogin = async (email, password, path) => {
     setLoading(true);
-    const res = await fetch("http://localhost:5000"+path, {
+    const res = await fetch("http://localhost:5000" + path, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
