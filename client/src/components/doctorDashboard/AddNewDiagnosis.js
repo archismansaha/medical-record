@@ -4,7 +4,8 @@ import minus_logo from "../../assets/img/dashboard/minus2_pbl.png";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
-
+import axios from "axios";
+const apiUrl = "http://localhost:5000";
 const AddNewDiagnosis = (props) => {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
@@ -88,8 +89,11 @@ const AddNewDiagnosis = (props) => {
 
   useEffect(() => {
     async function getDoctor() {
-      const res = await fetch("http://localhost:5000"+"/getdoctor");
-      const data = await res.json();
+      const response = await axios.get(`http://localhost:5000/getdoctor`, {
+        withCredentials: true,
+      });
+
+      const data = response.data
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -115,14 +119,19 @@ const AddNewDiagnosis = (props) => {
     // console.log('Patient ID:', props.healthID);
     
     setLoading(true);
-    const res = await fetch(`http://localhost:5000/prescription/${props.healthID}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(prescription),
+    const response = await axios.post(`http://localhost:5000/prescription/${props.healthID}`,prescription, {
+      withCredentials: true,
     });
-    const data = await res.json();
+
+    const data = response.data
+    // const res = await fetch(`http://localhost:5000/prescription/${props.healthID}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(prescription),
+    // });
+    // const data = await res.json();
     if (data.AuthError) {
       props.settoastCondition({
         status: "info",

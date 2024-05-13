@@ -65,7 +65,7 @@ module.exports.patient_register = async (req, res) => {
       contactPerson,
     });
     const token = createToken(patient._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 90000000 });
     res.status(200).json({ patient });
   } catch (err) {
     console.log("Catch Error", err);
@@ -83,7 +83,7 @@ module.exports.patient_login = async (req, res) => {
 
     // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.cookie("jwt", token, {
-      maxAge: 840000, // 14 minutes
+      maxAge: 90000000, // 14 minutes
       httpOnly: true,
       // for https sites only
       sameSite: "none",

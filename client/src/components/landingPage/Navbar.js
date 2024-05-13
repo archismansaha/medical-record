@@ -23,8 +23,8 @@ export default function Navbar() {
           <Link to="/about">About us</Link>
         </li>
         <li>
-          <Link to="/contact">Contact us</Link>
-        </li>
+        <Link to="/prediction">Prediction</Link>
+      </li>
       </ul>
 
       <button className="bg-primary lg:py-2 lg:px-3 rounded font-semibold font-poppins shadow-sm hover:bg-bgsecondary py-1 px-2 mr-2">

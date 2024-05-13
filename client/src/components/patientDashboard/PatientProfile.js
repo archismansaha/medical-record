@@ -9,7 +9,8 @@ import blood from "../../assets/img/dashboard/patient-profile-blood.png";
 import healthid from "../../assets/img/dashboard/patient-profile-healthid.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
+const apiUrl = "http://localhost:5000";
 const PatientProfile = (props) => {
   const navigate = useNavigate();
   const [patient, setPatient] = useState({
@@ -54,8 +55,11 @@ const PatientProfile = (props) => {
   });
   useEffect(() => {
     async function getpatient() {
-      const res = await fetch("/getpatient");
-      const data = await res.json();
+
+      const response = await axios.get(`${apiUrl}/getpatient`, {
+        withCredentials: true,
+      });
+      const data = response.data
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",

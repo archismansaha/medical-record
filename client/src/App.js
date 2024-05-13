@@ -1,5 +1,6 @@
 import "./App.css";
 import Contact from "./components/landingPage/Contact";
+import Prediction from "./components/landingPage/PredictionDashboard";
 import RegisterPatient from "./components/landingPage/RegisterPatient";
 import RegisterDoctor from "./components/adminDashboard/RegisterDoctor";
 import LandingPage from "./pages/LandingPage";
@@ -75,6 +76,12 @@ function App() {
             />
           }
         />
+        <Route path="prediction" element={
+          <Prediction  settoastCondition={settoastCondition}
+          setToastShow={setToastShow}/>
+        }
+      />
+
         <Route
           path="Register"
           element={

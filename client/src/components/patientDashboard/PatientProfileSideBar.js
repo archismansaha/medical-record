@@ -6,11 +6,15 @@ import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import logoutimg from "../../assets/img/dashboard/logout.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import axios from "axios";
+const apiUrl = "http://localhost:5000";
 const PatientProfileSideBar = (props) => {
   const navigate = useNavigate();
   const logout = async () => {
-    const res = await fetch("/logout");
+    const response = await axios.get(`${apiUrl}/logout`, {
+      withCredentials: true,
+    });
+    const data = response.data
     props.settoastCondition({
       status: "success",
       message: "Logged out Successfully!!!",

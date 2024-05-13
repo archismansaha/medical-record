@@ -88,16 +88,17 @@ export default function Register(props) {
     if (patient.password === confirmPassword) {
       setLoading(true);
       e.preventDefault();
-      const res = await fetch("http://localhost:5000/register/patient", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(patient),
-      });
+      const data = await axios.post(
+        "http://localhost:5000/register/patient",
+        patient,
+        {
+          withCredentials: true,
+          credentials: "include",
+          crossDomain: true,
+        }
+      );
 
-      const data = await res.json();
-
+      
       if (data.errors) {
         setLoading(false);
         setErrors(data.errors);

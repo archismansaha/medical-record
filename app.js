@@ -5,6 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const patientRoutes = require("./routes/patientRoutes");
 const cookieParser = require("cookie-parser");
 const registerRoute = require("./routes/registerRoute");
+const predictRoute = require("./routes/predictionRoutes");
 const doctorRoute = require("./routes/doctorRoute");
 const adminRoutes = require("./routes/adminRoutes");
 const logoutRoute = require("./routes/logoutRoute");
@@ -36,7 +37,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-const dbURI = process.env.DATABASE_URL;
+const dbURI = process.env.DATABASE_URL||"mongodb://localhost:27017/medical-record?";
 const port = process.env.PORT || 5000;
 app.use(authRoutes);
 app.use(registerRoute);
@@ -44,6 +45,7 @@ app.use(doctorRoute);
 app.use(patientRoutes);
 app.use(adminRoutes);
 app.use(logoutRoute);
+app.use(predictRoute);
 mongoose
   .connect(dbURI)
   .then((result) => {

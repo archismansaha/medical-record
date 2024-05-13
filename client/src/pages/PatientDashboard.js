@@ -70,7 +70,7 @@ const PatientDashboard = (props) => {
       // });
       // const data = await res.json();
 
-      const response = await axios.get(`${apiUrl}/getpatient`, {
+      const response = await axios.get(`http://localhost:5000/getpatient`, {
         withCredentials: true,
       });
 
