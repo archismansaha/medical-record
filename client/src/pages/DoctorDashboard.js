@@ -7,7 +7,7 @@ import eye from "../assets/img/dashboard/eye.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
-
+import axios from "axios";
 
 const DoctorDashboard = (props) => {
   const apiUrl = "http://localhost:5000";
@@ -63,8 +63,12 @@ const DoctorDashboard = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const res = await fetch("http://localhost:5000"+"/getdoctor");
-      const data = await res.json();
+     let data = await axios.get(`http://localhost:5000/getdoctor`, {
+        withCredentials: true,
+      });
+
+       data =  data.data;
+      //  console.log(data);
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -76,12 +80,15 @@ const DoctorDashboard = (props) => {
         setDoctor(data.doctor);
       }
     }
+
     async function getpatient() {
       setLoading(true);
       if (props.healthID.length >1) {
-        const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`);
-        const data = await res.json();
-
+        let data =  await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{
+          withCredentials:true
+        });
+      
+data=data.data;
         if (data.patient.prescriptions) {
           setPrescriptions(data.patient.prescriptions.reverse());
         }
@@ -123,12 +130,12 @@ const DoctorDashboard = (props) => {
     e.preventDefault();
     setLoading(true);
     if (props.healthID.length >= 1) {
-      const res = await fetch(`${apiUrl}/searchpatient/${props.healthID}`);
-      const data = await res.json();
-      // console.log(data);
+      let data = await axios.get(`${apiUrl}/searchpatient/${props.healthID}`,{withCredentials:true});
+    data=data.data
+     console.log("In patient search",data);
 
-      if (data.prescriptions) {
-        setPrescriptions(data.prescriptions.reverse());
+      if (data.patient.prescriptions) {
+        setPrescriptions(data.patient.prescriptions.reverse());
       }
 
       if (data.AuthError) {
@@ -410,9 +417,9 @@ const DoctorDashboard = (props) => {
                   </div>
 
                   {prescriptions.length > 0 ? (
-                    prescriptions.slice(0, 3).map((prescription) => {
+                    prescriptions.slice(0, 3).map((prescription, index) => {
                       return (
-                        <div className="grid grid-cols-4">
+                        <div className="grid grid-cols-4" key={index}>
                           <div>
                             <h1>
                               {convertDatetoString(prescription.createdAt)}

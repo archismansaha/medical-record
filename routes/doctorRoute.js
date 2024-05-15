@@ -16,14 +16,25 @@ const {
 
 const router = Router();
 
-router.post("/register/doctor",  doctor_register);
+// router.post("/register/doctor",  doctor_register);
+// router.post("/login/doctor", doctor_login);
+// router.post("/prescription/:healthID", add_prescription);
+// router.get("/searchpatient/:healthID",  search_patient);
+// router.get(
+//   "/viewprescription/:healthID/:id",
+//   view_prescription
+// );
+// router.get("/getdoctor",get_doctor);
+
+router.post("/register/doctor", requireAdminAuth, doctor_register);
 router.post("/login/doctor", doctor_login);
-router.post("/prescription/:healthID", add_prescription);
-router.get("/searchpatient/:healthID",  search_patient);
+router.post("/prescription/:healthID", requireDoctorAuth, add_prescription);
+router.get("/searchpatient/:healthID", requireDoctorAuth, search_patient);
 router.get(
   "/viewprescription/:healthID/:id",
+  requireDoctorAuth,
   view_prescription
 );
-router.get("/getdoctor",get_doctor);
+router.get("/getdoctor", requireDoctorAuth, get_doctor);
 
 module.exports = router;

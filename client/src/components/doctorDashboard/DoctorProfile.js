@@ -14,6 +14,7 @@ import degree from "../../assets/img/dashboard/doctor-profile-degree.png";
 import home from "../../assets/img/dashboard/doctor-profile-home.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const DoctorProfile = (props) => {
   const navigate = useNavigate();
@@ -63,7 +64,10 @@ const DoctorProfile = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const res = await fetch("http://localhost:5000"+"/getdoctor");
+      const res = await fetch("http://localhost:5000"+"/getdoctor", {
+        withCredentials: true,
+        credentials: "include",
+      });
       const data = await res.json();
       if (data.AuthError) {
         props.settoastCondition({
@@ -77,6 +81,8 @@ const DoctorProfile = (props) => {
     }
     getdoctor();
   }, []);
+
+  console.log(doctor);
 
   return (
     <body className="font-poppins col-span-10 overflow-y-scroll">

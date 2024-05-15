@@ -4,8 +4,9 @@ import { chronicKidneyDisease } from "./schema";
 //import DiseaseService from "../../api/disease/disease";
 import PredictModal from "./predictModal";
 import LoaderSpinner from "./LoaderSpinner";
-import axios from "axios"
+import axios from "axios";
 import Navbar from "./Navbar";
+
 const ChronicKidneyDiease = () => {
   const [predicted, setPredicted] = useState(false);
   const [result, setResult] = useState(null);
@@ -16,15 +17,17 @@ const ChronicKidneyDiease = () => {
 
     try {
       setLoading(true);
-      const prediction = await axios.post('http://localhost:5000/predict',
+      const prediction = await axios.post(
+        "http://localhost:5000/predict",
         formData
       );
       setPredicted(true);
-      setLoading(false);
       setResult(prediction);
     } catch (error) {
       setLoading(false);
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,12 +44,11 @@ const ChronicKidneyDiease = () => {
   } = useFormik({
     initialValues: {
       age: "",
-     
-      
+
       bloodPressure: "",
       specificGravity: "",
-      albumin:"",
-      sugar:"",
+      albumin: "",
+      sugar: "",
       redBloodCellsInUrine: "",
       posCellInUrine: "",
       posCellClumpsInUrine: "",
@@ -83,7 +85,7 @@ const ChronicKidneyDiease = () => {
 
   return (
     <div className="w-full items-center justify-center">
-    <Navbar></Navbar>
+      <Navbar></Navbar>
       <h1 className="text-lg font-bold text-gray-600 text-center mt-8">
         Chronic Kidney Disease
       </h1>
@@ -159,64 +161,52 @@ const ChronicKidneyDiease = () => {
             </p>
           )}
 
-
+          <label
+            htmlFor="sugar"
+            className="font-semibold w-[90%] max-w-sm mt-8"
+          >
+            Sugar
+          </label>
+          <input
+            type="number"
+            id="sugar"
+            className={`h-12 w-[90%] max-w-sm font-semi-bold px-4 border-2 border-gray-300 rounded-sm outline-none hover:shadow-xl transition-shadow ${
+              errors.sugar && touched.sugar ? "border-red-500" : ""
+            }`}
+            value={values.sugar}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Eg: 20"
+          />
+          {errors.sugar && touched.sugar && (
+            <p className="w-[90%] max-w-sm font-medium text-red-500">
+              {errors.sugar}
+            </p>
+          )}
 
           <label
-          htmlFor="sugar"
-          className="font-semibold w-[90%] max-w-sm mt-8"
-        >
-          Sugar 
-        </label>
-        <input
-          type="number"
-          id="sugar"
-          className={`h-12 w-[90%] max-w-sm font-semi-bold px-4 border-2 border-gray-300 rounded-sm outline-none hover:shadow-xl transition-shadow ${
-            errors.sugar && touched.sugar
-              ? "border-red-500"
-              : ""
-          }`}
-          value={values.sugar}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Eg: 20"
-        />
-        {errors.sugar && touched.sugar && (
-          <p className="w-[90%] max-w-sm font-medium text-red-500">
-            {errors.sugar}
-          </p>
-        )}
+            htmlFor="albumin"
+            className="font-semibold w-[90%] max-w-sm mt-8"
+          >
+            Albumin
+          </label>
+          <input
+            type="number"
+            id="albumin"
+            className={`h-12 w-[90%] max-w-sm font-semi-bold px-4 border-2 border-gray-300 rounded-sm outline-none hover:shadow-xl transition-shadow ${
+              errors.albumin && touched.albumin ? "border-red-500" : ""
+            }`}
+            value={values.albumin}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Eg: 20"
+          />
+          {errors.albumin && touched.albumin && (
+            <p className="w-[90%] max-w-sm font-medium text-red-500">
+              {errors.albumin}
+            </p>
+          )}
 
-
-
-        <label
-        htmlFor="albumin"
-        className="font-semibold w-[90%] max-w-sm mt-8"
-      >
-      Albumin 
-      </label>
-      <input
-        type="number"
-        id="albumin"
-        className={`h-12 w-[90%] max-w-sm font-semi-bold px-4 border-2 border-gray-300 rounded-sm outline-none hover:shadow-xl transition-shadow ${
-          errors.albumin && touched.albumin
-            ? "border-red-500"
-            : ""
-        }`}
-        value={values.albumin}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        placeholder="Eg: 20"
-      />
-      {errors.albumin && touched.albumin && (
-        <p className="w-[90%] max-w-sm font-medium text-red-500">
-          {errors.albumin}
-        </p>
-      )}
-
-
-
-
-          
           <label
             htmlFor="redBloodCellsInUrine"
             className="font-semibold w-[90%] max-w-sm mt-8"

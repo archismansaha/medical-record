@@ -8,6 +8,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 const apiUrl = "http://localhost:5000";
+
 const PatientProfileSideBar = (props) => {
   const navigate = useNavigate();
   const logout = async () => {
@@ -33,7 +34,7 @@ const PatientProfileSideBar = (props) => {
           </div>
           <div className="heading font-poppins font-bold text-xl  ">
             <Link to="/">
-              <h1>Public health Record System</h1>
+              <h1>MedAce</h1>
             </Link>
           </div>
         </div>

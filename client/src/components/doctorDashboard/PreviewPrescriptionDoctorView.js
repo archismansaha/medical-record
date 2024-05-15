@@ -3,7 +3,7 @@ import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import Footer from "../landingPage/Footer";
 import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 const PreviewPrescriptionDoctorView = (props) => {
   // printprescriptionstart
 
@@ -62,10 +62,11 @@ const PreviewPrescriptionDoctorView = (props) => {
   });
   useEffect(() => {
     async function fetchprescription() {
-      const res = await fetch("http://localhost:5000"+
-        `/viewprescription/${props.healthID}/${props.prescriptionID}`
+      const data = await axios.get("http://localhost:5000"+
+        `/viewprescription/${props.healthID}/${props.prescriptionID}`,
+        {withCredentials: true,}
       );
-      const data = await res.json();
+      
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -85,8 +86,8 @@ const PreviewPrescriptionDoctorView = (props) => {
       }
     }
     async function fetchpatient() {
-      const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`);
-      const data = await res.json();
+      const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true});
+   
 
       if (data.AuthError) {
         props.settoastCondition({

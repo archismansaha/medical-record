@@ -8,14 +8,14 @@ module.exports.model_predict=async function(req, res){
     
         const data = req.body;
     
-        console.log("START",data);
-        
+        //console.log("START",data);
         const pythonProcess = spawn('python', ['python_script.py', 'predict', JSON.stringify(data)]);
+        console.log("Started");
         let prediction = 0;
         pythonProcess.stdout.on('data', (data) => {
-            console.log(`Model output: ${JSON.parse(data)}`);
-            if(data.length>0)
-            return res.json({ prediction: JSON.parse(data)[0] });
+            console.log(`Model output: ${data}`);
+            // if(data.length>0)
+            // return res.json({ prediction: JSON.parse(data)[0] });
        
         });
        

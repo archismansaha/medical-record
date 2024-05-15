@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import profile from "../../assets/img/landingPage/profile.png";
 import ReactLoading from "react-loading";
 import axios from "axios";
+
 export default function Login(props) {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
@@ -76,18 +77,31 @@ export default function Login(props) {
 
   const handleDoctorAdminLogin = async (email, password, path) => {
     setLoading(true);
-    const res = await fetch("http://localhost:5000" + path, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    // const res = await fetch("http://localhost:5000" + path, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
+
+    const data = await axios.post(
+      "http://localhost:5000" + path,
+      {
         email,
         password,
-      }),
-    });
+      },
+      {
+        withCredentials: true,
+        credentials: "include",
+        crossDomain: true,
+      }
+    );
+    // const data = response.data
 
-    const data = await res.json();
     if (data.err) {
       setLoading(false);
       props.settoastCondition({

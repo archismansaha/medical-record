@@ -3,6 +3,7 @@ import PatientHistoryCompoDoctorView from "./PatientHistoryCompoDoctorView";
 import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios"
 
 const PatientHistoryDoctorView = (props) => {
   const navigate = useNavigate();
@@ -55,8 +56,8 @@ const PatientHistoryDoctorView = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const res = await fetch("http://localhost:5000"+"/getdoctor");
-      const data = await res.json();
+      const data= await axios.get("http://localhost:5000"+"/getdoctor",{withCredentials:true});
+ 
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -70,9 +71,8 @@ const PatientHistoryDoctorView = (props) => {
     }
     async function getpatient() {
       if (props.healthID.length > 1) {
-        const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`);
-        const data = await res.json();
-
+        const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true});
+      
         if (data.AuthError) {
           props.settoastCondition({
             status: "info",
