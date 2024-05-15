@@ -156,7 +156,7 @@ const PreviewPrescription = (props) => {
               <h1 className="font-bold">{prescription.hospital.name}</h1>
             </div>
             <div className="flex">
-              <h2>{prescription.hospital.address}</h2>
+              <h2>{'Kolkata'}</h2>
               {/* <h2 className="ml-2">425155</h2> */}
             </div>
             <div className="flex">
@@ -275,6 +275,7 @@ const PreviewPrescription = (props) => {
             {prescription.advices.map((advice, index) => {
               return <h3 key={index}>{advice.advice}</h3>;
             })}
+            {/* Advices */}
           </div>
         </div>
       </div>

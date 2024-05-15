@@ -36,7 +36,7 @@ const AdminDashboard = (props) => {
               <Link to="/AdminDash">
                 <div>
                   <h1 className="text-2xl font-poppins font-bold p-2 ">
-                    DashBoard Today
+                    Admin Dashboard
                   </h1>
                 </div>
               </Link>

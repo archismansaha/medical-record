@@ -95,6 +95,8 @@ const PatientDashboard = (props) => {
     props.setPrescriptionID(prescriptions[0]._id);
   }
 
+  console.log(prescriptions)
+
   return (
     <div className="full-body col-span-10 h-screen">
       <div className="body-without-footer max-h-min bg-bgprimary ">
@@ -168,7 +170,9 @@ const PatientDashboard = (props) => {
                 </div>
                 <div>
                   <h1 className="font-bold mt-4">Past Health History</h1>
-                  <div>{`${patient.diseases[0].disease} (${patient.diseases[0].yrs} yrs.)`}</div>
+                  {patient.diseases.map((disease, index) => {
+                    return (<span key={index}>{disease.disease + ' '}</span>)
+                  })}
                 </div>
               </div>
             </div>
@@ -258,10 +262,10 @@ const PatientDashboard = (props) => {
                   <hr></hr>
                 </div>
 
-                {prescriptions.length > 1 ? (
-                  prescriptions.slice(1, 3).map((prescription) => {
+                {prescriptions.length > 0 ? (
+                  prescriptions.slice(0, 3).map((prescription, index) => {
                     return (
-                      <div className="grid grid-cols-4">
+                      <div className="grid grid-cols-4" key={index}>
                         <div>
                           <h1>{convertDatetoString(prescription.createdAt)}</h1>
                         </div>
