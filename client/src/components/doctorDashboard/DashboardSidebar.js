@@ -25,14 +25,14 @@ console.log(props)
     <div className="h-screen overflow-y-hidden w-screen grid grid-cols-12">
       <div className="side_bar bg-white shadow col-span-2">
         <div className="flex m-2 mt-4  ">
-          <div className="logo m-2  ">
-            <img src={logo} className="w-16" alt="logo"></img>
-          </div>
-          <div className="heading font-poppins font-bold text-xl  ">
+          <Link className="logo" to='/'>
+            <img src={logo} className="w-16" alt="logo" style={{ width: '10rem' }}></img>
+          </Link>
+          {/* <div className="heading font-poppins font-bold text-xl  ">
             <Link to="/">
               <h1>Doctor's Dashboard</h1>
             </Link>
-          </div>
+          </div> */}
         </div>
         <nav>
           <Link

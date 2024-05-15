@@ -90,7 +90,7 @@ const ChronicKidneyDiease = () => {
         Chronic Kidney Disease
       </h1>
       <form onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center  flex-col mt-6 py-4">
+        <div className="flex items-center justify-center flex-col mt-6">
           <label htmlFor="age" className="font-semibold w-[90%] max-w-sm">
             Age
           </label>
