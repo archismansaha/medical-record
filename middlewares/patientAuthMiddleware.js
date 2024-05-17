@@ -3,7 +3,6 @@ const Patient = require("../models/patient");
 
 const requirePatientAuth = (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log('Checking patient cookie', token)
   if (token) {
     jwt.verify(token, "SECRET", async (err, decodedToken) => {
       if (err) {

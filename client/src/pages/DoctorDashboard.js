@@ -67,6 +67,7 @@ const DoctorDashboard = (props) => {
         withCredentials: true,
         credentials: "include",
       });
+      console.log(data)
 
        data =  data.data;
       if (data.AuthError) {
@@ -168,6 +169,8 @@ data=data.data;
       props.setToastShow(true);
     }
   };
+
+  console.log('Doctor:', doctor)
 
   return (
     <div className="full-body col-span-10 h-screen">

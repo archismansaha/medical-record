@@ -11,6 +11,7 @@ const requireDoctorAuth = (req, res, next) => {
       } else {
         const doctor = await Doctor.findById(decodedToken.id);
         req.doctor = doctor;
+        console.log('Doctor', doctor);
         next();
       }
     });
