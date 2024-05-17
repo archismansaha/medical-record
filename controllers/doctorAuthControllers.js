@@ -49,7 +49,16 @@ module.exports.doctor_login = async (req, res) => {
   try {
     const doctor = await Doctor.login(email, password);
     const token = createToken(doctor._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie("jwt", token, {
+      maxAge: 90000000, // 14 minutes
+      httpOnly: true,
+      // for https sites only
+      sameSite: "none",
+      secure: true,
+    });
+
+    req.headers.authorization = token;
     res.status(200).json({ doctor });
   } catch (err) {
     res.status(404).json({ err });

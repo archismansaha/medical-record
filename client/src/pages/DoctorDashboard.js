@@ -63,23 +63,37 @@ const DoctorDashboard = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-     let data = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
-        withCredentials: true,
-        credentials: "include",
-      });
-      console.log(data)
-
-       data =  data.data;
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to Proceed!!!",
-        });
-        props.setToastShow(true);
+      try {
+        const response = await axios.get(`${apiUrl}/getdoctor`, {
+          withCredentials: true,
+          credentials: "include",
+          crossDomain: true,
+        })
+        setDoctor(response.data.doctor);
+        console.log('Getting doctor data',  response.data)
+      } catch (error) {
+        console.log(error.message);
         navigate("/");
-      } else {
-        setDoctor(data.doctor);
       }
+
+    //  let data = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
+    //     withCredentials: true,
+    //     credentials: "include",
+    //     crossDomain: true,
+    //   });
+    //   console.log('Getting doctor data',  data)
+
+    //    data =  data.data;
+    //   if (data.AuthError) {
+    //     props.settoastCondition({
+    //       status: "info",
+    //       message: "Please Login to Proceed!!!",
+    //     });
+    //     props.setToastShow(true);
+    //     navigate("/");
+    //   } else {
+    //     setDoctor(data.doctor);
+    //   }
     }
 
     async function getpatient() {
@@ -170,7 +184,6 @@ data=data.data;
     }
   };
 
-  console.log('Doctor:', doctor)
 
   return (
     <div className="full-body col-span-10 h-screen">
