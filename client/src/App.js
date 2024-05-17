@@ -4,7 +4,6 @@ import Prediction from "./components/landingPage/PredictionDashboard";
 import RegisterPatient from "./components/landingPage/RegisterPatient";
 import RegisterDoctor from "./components/adminDashboard/RegisterDoctor";
 import LandingPage from "./pages/LandingPage";
-import About from "./components/landingPage/About";
 import PatientDashboard from "./pages/PatientDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -66,7 +65,6 @@ function App() {
             />
           }
         />
-        <Route path="about" element={<About />} />
         <Route
           path="contact"
           element={

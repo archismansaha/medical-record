@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DoctorListCompo from "./DoctorListCompo";
+const apiUrl = 'http://localhost:5000'
+
 const DoctorList = (props) => {
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = useState([]);
+
   useEffect(() => {
     async function fetchDoctorList() {
-      const res = await fetch("http://localhost:5000"+"/doctorlist", {
-        // credentials: "include",
+      const res = await fetch(apiUrl+"/doctorlist", {
+        withCredentials: true,
+        credentials: "include",
       });
       const data = await res.json();
       if (data.AuthError) {

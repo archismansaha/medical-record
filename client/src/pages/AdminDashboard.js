@@ -5,13 +5,20 @@ import Footer from "../components/landingPage/Footer";
 import PatientList from "../components/adminDashboard/PatientList";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from 'axios'
+const apiUrl = 'http://localhost:5000'
+
 
 const AdminDashboard = (props) => {
   const [adminEmail, setAdminEmail] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchAdmin() {
-      const res = await fetch("/getadmin");
+      const res = await fetch(`${apiUrl}/getadmin`, {
+        withCredentials: true,
+        credentials: "include",
+      });
       const data = await res.json();
       if (data.AuthError) {
         props.settoastCondition({
@@ -66,7 +73,9 @@ const AdminDashboard = (props) => {
                 </div>
               </div>
             </div>
-            <div>
+
+            {/* Just After the navbar */}
+            <div className="border">
               <PatientList></PatientList>
             </div>
           </div>
