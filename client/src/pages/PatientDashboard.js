@@ -8,7 +8,7 @@ import eye from "../assets/img/dashboard/eye.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const apiUrl = "http://localhost:5000";
+const apiUrl = "https://medical-record-rxyo.onrender.com";
 
 const PatientDashboard = (props) => {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ const PatientDashboard = (props) => {
       // });
       // const data = await res.json();
 
-      const response = await axios.get(`http://localhost:5000/getpatient`, {
+      const response = await axios.get(`https://medical-record-rxyo.onrender.com/getpatient`, {
         withCredentials: true,
       });
 

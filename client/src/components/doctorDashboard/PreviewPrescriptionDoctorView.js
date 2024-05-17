@@ -62,7 +62,7 @@ const PreviewPrescriptionDoctorView = (props) => {
   });
   useEffect(() => {
     async function fetchprescription() {
-      const data = await axios.get("http://localhost:5000"+
+      const data = await axios.get("https://medical-record-rxyo.onrender.com"+
         `/viewprescription/${props.healthID}/${props.prescriptionID}`,
         {withCredentials: true,}
       );
@@ -86,7 +86,7 @@ const PreviewPrescriptionDoctorView = (props) => {
       }
     }
     async function fetchpatient() {
-      const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true});
+      const data = await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{withCredentials:true});
    
 
       if (data.AuthError) {

@@ -56,7 +56,7 @@ const PatientHistoryDoctorView = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const data= await axios.get("http://localhost:5000"+"/getdoctor",{withCredentials:true});
+      const data= await axios.get("https://medical-record-rxyo.onrender.com"+"/getdoctor",{withCredentials:true});
  
       if (data.AuthError) {
         props.settoastCondition({
@@ -71,7 +71,7 @@ const PatientHistoryDoctorView = (props) => {
     }
     async function getpatient() {
       if (props.healthID.length > 1) {
-        const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true});
+        const data = await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{withCredentials:true});
       
         if (data.AuthError) {
           props.settoastCondition({

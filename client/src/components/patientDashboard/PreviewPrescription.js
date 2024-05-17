@@ -4,7 +4,7 @@ import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import Footer from "../landingPage/Footer";
 import axios from "axios";
 // import { set } from "mongoose";
-const apiUrl = 'http://localhost:5000';
+const apiUrl = 'https://medical-record-rxyo.onrender.com';
 
 const PreviewPrescription = (props) => {
   //   function printPrescription() {
