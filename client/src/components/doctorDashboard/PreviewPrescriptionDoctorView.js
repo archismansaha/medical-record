@@ -4,6 +4,8 @@ import Footer from "../landingPage/Footer";
 import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+
 const PreviewPrescriptionDoctorView = (props) => {
   // printprescriptionstart
 
@@ -60,13 +62,15 @@ const PreviewPrescriptionDoctorView = (props) => {
       pincode: "",
     },
   });
+
   useEffect(() => {
     async function fetchprescription() {
       const data = await axios.get("https://medical-record-rxyo.onrender.com"+
         `/viewprescription/${props.healthID}/${props.prescriptionID}`,
-        {withCredentials: true,}
+        {withCredentials: true, credentials: "include"}
       );
       
+
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -85,9 +89,10 @@ const PreviewPrescriptionDoctorView = (props) => {
         setPrescription(data.prescription[0]);
       }
     }
+
     async function fetchpatient() {
-      const data = await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{withCredentials:true});
-   
+      const data = await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{withCredentials:true, credentials:"include"});
+      console.log('Getting patient data:', data)
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -97,12 +102,20 @@ const PreviewPrescriptionDoctorView = (props) => {
         props.setToastShow(true);
         navigate("/");
       } else {
-        setPatient(data.patient);
+        setPatient(data.data.patient);
       }
     }
-    fetchprescription();
-    fetchpatient();
+    // fetchprescription();
+    // fetchpatient();
+
+    ;(async () => {
+      await fetchpatient();
+      await fetchprescription();
+    })()
   }, []);
+
+  // console.log('Prescription:', prescription)
+  // console.log('Patient:', patient)
 
   return (
     <div

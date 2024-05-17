@@ -65,10 +65,10 @@ const DoctorDashboard = (props) => {
     async function getdoctor() {
      let data = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
         withCredentials: true,
+        credentials: "include",
       });
 
        data =  data.data;
-      //  console.log(data);
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -85,7 +85,8 @@ const DoctorDashboard = (props) => {
       setLoading(true);
       if (props.healthID.length >1) {
         let data =  await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{
-          withCredentials:true
+          withCredentials:true,
+          credentials: "include",
         });
       
 data=data.data;
