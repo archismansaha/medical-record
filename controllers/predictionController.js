@@ -15,7 +15,7 @@ module.exports.model_predict=async function(req, res){
         pythonProcess.stdout.on('data', (data) => {
             console.log(`Model output: ${data}`);
             // if(data.length>0)
-            // return res.json({ prediction: JSON.parse(data)[0] });
+            return res.json({ prediction: JSON.parse(data)[0] });
        
         });
        
