@@ -4,24 +4,24 @@ import joblib
 
 app = Flask(__name__)
 
-# Load the pre-trained model
+
 model = joblib.load('chronickidney-disease-latest-4')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the data from the request body
+        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'No input data provided'}), 400
 
-        # Convert the data to a numpy array
+        
         try:
             data = np.array(data).reshape(1, -1)
         except Exception as e:
             return jsonify({'error': f'Error in data format: {e}'}), 400
 
-        # Make the prediction
+       
         prediction = model.predict(data)
         return jsonify({'prediction': prediction.tolist()})
     
