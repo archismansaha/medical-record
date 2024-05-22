@@ -18,7 +18,7 @@ const ChronicKidneyDiease = () => {
     try {
       setLoading(true);
       const prediction = await axios.post(
-        "https://medical-record-rxyo.onrender.com/predict",
+        "https://medical-record-1.onrender.com/predict",
         formData
       );
       setPredicted(true);
