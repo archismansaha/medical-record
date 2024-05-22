@@ -2,3 +2,5 @@ Flask
 joblib
 numpy
 gunicorn
+sklearn
+pandas
