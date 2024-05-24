@@ -33,8 +33,9 @@ export default function Login(props) {
 
   const handlePatientLogin = async (healthID, password) => {
     setLoading(true);
-
-    const data = await axios.post(
+  let data;
+    try{
+   data = await axios.post(
       "https://medical-record-rxyo.onrender.com/login/patient",
       {
         healthID,
@@ -46,6 +47,38 @@ export default function Login(props) {
         crossDomain: true,
       }
     );
+    setLoading(false);
+    console.log("Getting data after login ", data.data);
+    props.settoastCondition({
+      status: "success",
+      message: "Logged in Successfully!!!",
+    });
+    props.setToastShow(true);
+    navigate("/patient/dashboard");
+  }
+  catch(err){
+    setUsernameError(healthID);
+    setPasswordError(password);
+    if(err.response.status===404){
+      console.log("HERE")
+      props.setToastShow(true);
+    props.settoastCondition({
+      status: "error",
+      message: `No user found for ${healthID} !!!`,
+    });
+  }
+  else{
+    props.setToastShow(true);
+    setUsernameError(healthID);
+    setPasswordError(password);
+    props.settoastCondition({
+      status: "error",
+      message: `Wrong Credentials!!!`,
+    });
+  }
+    setLoading(false);
+    console.log();
+  }
 
     // {
     //   // method: "POST",
@@ -58,21 +91,8 @@ export default function Login(props) {
     // };
 
     // const data = await res.json();
-
-    if (data.errors) {
-      setUsernameError(data.errors.healthID);
-      setPasswordError(data.errors.password);
-      setLoading(false);
-    } else {
-      setLoading(false);
-      console.log("Getting data after login ", data.data);
-      props.settoastCondition({
-        status: "success",
-        message: "Logged in Successfully!!!",
-      });
-      props.setToastShow(true);
-      navigate("/patient/dashboard");
-    }
+      // console.log(data);
+  
   };
 
   const handleDoctorAdminLogin = async (email, password, path) => {
@@ -88,7 +108,8 @@ export default function Login(props) {
     //   }),
     // });
 
-    const data = await axios.post(
+   let data ; 
+   try{data=await axios.post(
       "https://medical-record-rxyo.onrender.com" + path,
       {
         email,
@@ -100,26 +121,7 @@ export default function Login(props) {
         crossDomain: true,
       }
     );
-    // const data = response.data
-
-    if (data.err) {
-      setLoading(false);
-      props.settoastCondition({
-        status: "error",
-        message: "Wrong Credentials!!!",
-      });
-      props.setToastShow(true);
-    } else if (data.errors) {
-      setUsernameError(data.errors.healthID);
-      setPasswordError(data.errors.password);
-      setLoading(false);
-      props.settoastCondition({
-        status: "error",
-        message: "Wrong Credentials!!!",
-      });
-      props.setToastShow(true);
-    } else {
-      setLoading(false);
+     setLoading(false);
       props.settoastCondition({
         status: "success",
         message: "Logged in Successfully!!!",
@@ -130,7 +132,32 @@ export default function Login(props) {
       } else {
         navigate("/admin/dashboard");
       }
+  }
+    // const data = response.data
+    catch(err){
+      setUsernameError(email);
+      setPasswordError(password);
+      if(err.response.status===404){
+        console.log("HERE")
+        props.setToastShow(true);
+      props.settoastCondition({
+        status: "error",
+        message: `No user found for ${email} !!!`,
+      });
     }
+    else{
+      props.setToastShow(true);
+      setUsernameError(email);
+      setPasswordError(password);
+      props.settoastCondition({
+        status: "error",
+        message: `Wrong Credentials!!!`,
+      });
+    }
+      setLoading(false);
+      console.log();
+    }
+  
   };
 
   const handleLogin = async (e) => {

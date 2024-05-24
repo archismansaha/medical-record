@@ -55,6 +55,22 @@ const PatientProfileSideBar = (props) => {
               </div>
             </div>
           </Link>
+          <Link
+          to="/patient/medicine"
+          onClick={() => setToggle("Medicine")}
+          className={
+            Toggle === "Medicine" ? "text-gray-900" : "text-gray-400"
+          }
+        >
+          <div className="flex m-2 mt-8 ">
+            <div className="w-6 ml-4  ">
+              <img src={dashboard} alt="Medicine"></img>
+            </div>
+            <div className="font-poppins font-bold ml-4">
+              <h1>Medicine</h1>
+            </div>
+          </div>
+        </Link>
 
           <Link
             to="/patient/reports"

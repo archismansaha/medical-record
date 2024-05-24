@@ -87,7 +87,8 @@ const ChronicKidneyDiease = () => {
     <div className="w-full items-center justify-center">
       <Navbar></Navbar>
       <h1 className="text-lg font-bold text-gray-600 text-center mt-8">
-        Chronic Kidney Disease
+        Chronic Kidney Disease 
+        <h2>(Full features launcing soon...)</h2>
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="flex items-center justify-center flex-col mt-6">
