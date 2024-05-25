@@ -5,11 +5,11 @@ import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 const PreviewPrescriptionDoctorView = (props) => {
   // printprescriptionstart
 
   // printprescriptionend
+  console.log('Props = ', props)
   const convertDatetoString = (dateString) => {
     let date = new Date(dateString);
     let day = date.getDate();
@@ -65,11 +65,13 @@ const PreviewPrescriptionDoctorView = (props) => {
 
   useEffect(() => {
     async function fetchprescription() {
-      const data = await axios.get("http://localhost:5000"+
-        `/viewprescription/${props.healthID}/${props.prescriptionID}`,
-        {withCredentials: true, credentials: "include"}
+      const data = await axios.get(
+        "http://localhost:5000" +
+          `/viewprescription/${props.healthID}/${props.prescriptionID}`,
+        { withCredentials: true, credentials: "include" }
       );
-      
+
+      console.log('After fetching prescription:', data.data)
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -91,8 +93,11 @@ const PreviewPrescriptionDoctorView = (props) => {
     }
 
     async function fetchpatient() {
-      const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true, credentials:"include"});
-      console.log('Getting patient data:', data)
+      const data = await axios.get(
+        "http://localhost:5000" + `/searchpatient/${props.healthID}`,
+        { withCredentials: true, credentials: "include" }
+      );
+      console.log("Getting patient data:", data);
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -108,14 +113,15 @@ const PreviewPrescriptionDoctorView = (props) => {
     // fetchprescription();
     // fetchpatient();
 
-    ;(async () => {
+    (async () => {
       await fetchpatient();
       await fetchprescription();
-    })()
+    })();
   }, []);
 
   // console.log('Prescription:', prescription)
   // console.log('Patient:', patient)
+  console.log("Showing Prescription");
 
   return (
     <div
@@ -195,9 +201,12 @@ const PreviewPrescriptionDoctorView = (props) => {
             <h1 className="ml-2 font-bold">clinincal findings</h1>
           </div>
 
-          {prescription.chiefComplaints.map((complaint) => {
+          {prescription.chiefComplaints.map((complaint, index) => {
             return (
-              <div className="grid grid-cols-2 justify-center ml-2 border-b-2 border-gray-400">
+              <div
+                className="grid grid-cols-2 justify-center ml-2 border-b-2 border-gray-400"
+                key={index}
+              >
                 <h1>{`${complaint.complaint} (${complaint.duration} days)`}</h1>
                 <h1>{complaint.finding}</h1>
               </div>

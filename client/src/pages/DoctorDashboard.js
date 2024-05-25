@@ -178,7 +178,7 @@ data=data.data;
     } else {
       props.settoastCondition({
         status: "warning",
-        message: "Please Enter 12 Digit HealthID !!!",
+        message: "Please Enter 6 Digit HealthID !!!",
       });
       props.setToastShow(true);
     }
