@@ -65,7 +65,7 @@ const PreviewPrescriptionDoctorView = (props) => {
 
   useEffect(() => {
     async function fetchprescription() {
-      const data = await axios.get("https://medical-record-rxyo.onrender.com"+
+      const data = await axios.get("http://localhost:5000"+
         `/viewprescription/${props.healthID}/${props.prescriptionID}`,
         {withCredentials: true, credentials: "include"}
       );
@@ -91,7 +91,7 @@ const PreviewPrescriptionDoctorView = (props) => {
     }
 
     async function fetchpatient() {
-      const data = await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{withCredentials:true, credentials:"include"});
+      const data = await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{withCredentials:true, credentials:"include"});
       console.log('Getting patient data:', data)
 
       if (data.AuthError) {

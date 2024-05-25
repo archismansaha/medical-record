@@ -24,14 +24,17 @@ module.exports.get_patient = async (req, res) => {
   // console.log(req.patient)
   res.status(200).json({ patient });
 };
+
 module.exports.get_medcine = async (req, res) => {
   let patient = req.patient;
   // let patients = await Patient.find();
   // let patient=patients[1];
-  console.log(patient)
   const prescriptions=patient.prescriptions;
+
   const formattedPrescriptions = prescriptions.map(prescription => {
     const { doctor, updatedAt, medicines } = prescription;
+
+    console.log('Current prescription: ', prescription)
     const formattedMedicines = medicines.map(medicine => {
       const { dosage, medicineName } = medicine;
       const { morning, afternoon, evening } = dosage;
@@ -49,6 +52,8 @@ module.exports.get_medcine = async (req, res) => {
           { time: "Evening", quantity: evening.quantity },
         ],
         dosageQUantity: totalDosage, 
+        duration: medicine.duration,
+        diagnosis: medicine.diagnosis,
       };
 
     });  

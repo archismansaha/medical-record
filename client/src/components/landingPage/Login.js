@@ -16,7 +16,7 @@ export default function Login(props) {
 
   // useEffect(() => {
   //   const auth = async () => {
-  //     const res = await axios.post("https://medical-record-rxyo.onrender.com/login/patient");
+  //     const res = await axios.post("http://localhost:5000/login/patient");
   //     const data = await res.json();
   //     if (data.msg === "Doctor Login Found") {
   //       navigate("/doctor/dashboard");
@@ -36,7 +36,7 @@ export default function Login(props) {
   let data;
     try{
    data = await axios.post(
-      "https://medical-record-rxyo.onrender.com/login/patient",
+      "http://localhost:5000/login/patient",
       {
         healthID,
         password,
@@ -97,7 +97,7 @@ export default function Login(props) {
 
   const handleDoctorAdminLogin = async (email, password, path) => {
     setLoading(true);
-    // const res = await fetch("https://medical-record-rxyo.onrender.com" + path, {
+    // const res = await fetch("http://localhost:5000" + path, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export default function Login(props) {
 
    let data ; 
    try{data=await axios.post(
-      "https://medical-record-rxyo.onrender.com" + path,
+      "http://localhost:5000" + path,
       {
         email,
         password,

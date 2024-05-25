@@ -6,7 +6,7 @@ import PatientList from "../components/adminDashboard/PatientList";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios'
-const apiUrl = 'https://medical-record-rxyo.onrender.com'
+const apiUrl = 'http://localhost:5000'
 
 
 const AdminDashboard = (props) => {

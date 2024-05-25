@@ -57,7 +57,7 @@ const PatientReportsDoctorView = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const data = await axios.get("https://medical-record-rxyo.onrender.com"+"/getdoctor",{withCredentials:true, credentials:"include"});
+      const data = await axios.get("http://localhost:5000"+"/getdoctor",{withCredentials:true, credentials:"include"});
       
       if (data.AuthError) {
         props.settoastCondition({
@@ -72,7 +72,7 @@ const PatientReportsDoctorView = (props) => {
     }
     async function getpatient() {
       if (props.healthID.length === 12) {
-        const res = await fetch("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`, {
+        const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`, {
           withCredentials: true,
           credentials: "include",
         });

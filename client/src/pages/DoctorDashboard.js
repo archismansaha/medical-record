@@ -10,7 +10,7 @@ import ReactLoading from "react-loading";
 import axios from "axios";
 
 const DoctorDashboard = (props) => {
-  const apiUrl = "https://medical-record-rxyo.onrender.com";
+  const apiUrl = "http://localhost:5000";
 
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const DoctorDashboard = (props) => {
         navigate("/");
       }
 
-    //  let data = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
+    //  let data = await axios.get(`http://localhost:5000/getdoctor`, {
     //     withCredentials: true,
     //     credentials: "include",
     //     crossDomain: true,
@@ -99,7 +99,7 @@ const DoctorDashboard = (props) => {
     async function getpatient() {
       setLoading(true);
       if (props.healthID.length >1) {
-        let data =  await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{
+        let data =  await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{
           withCredentials:true,
           credentials: "include",
         });

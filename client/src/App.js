@@ -10,7 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PatientProfile from "./components/patientDashboard/PatientProfile";
 import DoctorProfile from "./components/doctorDashboard/DoctorProfile";
 import PatientReports from "./components/patientDashboard/PatientReports";
-import PatientMedicine from "./components/patientDashboard/PatientMedicine"
+import PatientMedicine from "./components/patientDashboard/PatientMedicine";
 import AddNewDiagnosis from "./components/doctorDashboard/AddNewDiagnosis";
 import { Routes, Route } from "react-router-dom";
 import PatientList from "./components/adminDashboard/PatientList";
@@ -75,11 +75,15 @@ function App() {
             />
           }
         />
-        <Route path="prediction" element={
-          <Prediction  settoastCondition={settoastCondition}
-          setToastShow={setToastShow}/>
-        }
-      />
+        <Route
+          path="prediction"
+          element={
+            <Prediction
+              settoastCondition={settoastCondition}
+              setToastShow={setToastShow}
+            />
+          }
+        />
 
         <Route
           path="Register"
@@ -99,16 +103,16 @@ function App() {
             />
           }
         >
-        <Route
-        path="medicine"
-        element={
-          <PatientMedicine
-            setPrescriptionID={setPrescriptionID}
-            settoastCondition={settoastCondition}
-            setToastShow={setToastShow}
+          <Route
+            path="medicine"
+            element={
+              <PatientMedicine
+                setPrescriptionID={setPrescriptionID}
+                settoastCondition={settoastCondition}
+                setToastShow={setToastShow}
+              />
+            }
           />
-        }
-      />
           <Route
             path="dashboard"
             element={
