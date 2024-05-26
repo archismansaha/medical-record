@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import patient_profile from "../../assets/img/dashboard/patient2_pbl.png";
 import Footer from "../landingPage/Footer";
 import axios from "axios";
-// import { set } from "mongoose";
 const apiUrl = 'http://localhost:5000';
+
 
 const PreviewPrescription = (props) => {
   //   function printPrescription() {
@@ -80,6 +80,20 @@ const PreviewPrescription = (props) => {
   });
 
   useEffect(() => {
+    const fetchPrescriptionData = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/prescription/${props.prescriptionID}`, {
+          withCredentials: true,
+          credentials: "include",
+        });
+        setPrescription(response.data.prescription);
+        setPatient(response.data.patient);
+      } catch(err) {
+        console.log(err)
+      }
+    }
+
+    fetchPrescriptionData();
     // async function fetchprescription() {
     //   const res = await fetch(`${apiUrl}/prescription/${props.prescriptionID}`);
     //   const data = await res.json();
@@ -104,35 +118,36 @@ const PreviewPrescription = (props) => {
     //   }
     // }
 
-    async function fetchpatient() {
-      // const res = await fetch(`${apiUrl}/getpatient`, {
-      //   withCredentials: true,
-      // });
-      // const data = await res.json();
 
-      const response = await axios.get(`${apiUrl}/getpatient`, {
-        withCredentials: true,
-      });
-      const data = response.data
+    // async function fetchpatient() {
+    //   // const res = await fetch(`${apiUrl}/getpatient`, {
+    //   //   withCredentials: true,
+    //   // });
+    //   // const data = await res.json();
 
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to proceed!!!",
-        });
-        props.setToastShow(true);
-        navigate("/");
-      } else {
-        // Seting patient data and set the first prescription as default
-        setPatient(data.patient);
-        setPrescription(data.patient.prescriptions[0]);
-        console.log(data.patient.prescriptions)
-      }
-    }
-    fetchpatient();
-    // fetchprescription();
+    //   const response = await axios.get(`${apiUrl}/getpatient`, {
+    //     withCredentials: true,
+    //   });
+    //   const data = response.data
+
+    //   if (data.AuthError) {
+    //     props.settoastCondition({
+    //       status: "info",
+    //       message: "Please Login to proceed!!!",
+    //     });
+    //     props.setToastShow(true);
+    //     navigate("/");
+    //   } else {
+    //     // Seting patient data and set the first prescription as default
+    //     setPatient(data.patient);
+    //     setPrescription(data.patient.prescriptions[0]);
+    //     console.log(data.patient.prescriptions)
+    //   }
+    // }
+    // fetchpatient();
+  
+    return () => {}
   }, []);
-
 
   return (
     <div
@@ -236,15 +251,15 @@ const PreviewPrescription = (props) => {
                 <div>
                   <div className="flex">
                     <h2>morning :</h2>
-                    <h2>{`${medicine.dosage.morning.quantity} (${medicine.dosage.morning.remark})`}</h2>
+                    <h2>{`${medicine.dosage.morning.quantity} ${medicine.dosage.morning.remark}`}</h2>
                   </div>
                   <div className="flex">
                     <h2>afternoon :</h2>
-                    <h2>{`${medicine.dosage.afternoon.quantity} (${medicine.dosage.afternoon.remark})`}</h2>
+                    <h2>{`${medicine.dosage.afternoon.quantity} ${medicine.dosage.afternoon.remark}`}</h2>
                   </div>
                   <div className="flex">
                     <h2>night :</h2>
-                    <h2>{`${medicine.dosage.evening.quantity} (${medicine.dosage.evening.remark})`}</h2>
+                    <h2>{`${medicine.dosage.evening.quantity} ${medicine.dosage.evening.remark}`}</h2>
                   </div>
                 </div>
                 <div>
@@ -282,6 +297,6 @@ const PreviewPrescription = (props) => {
       <Footer />
     </div>
   );
-};
+}
 
 export default PreviewPrescription;

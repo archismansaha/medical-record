@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 const apiUrl = "http://localhost:5000";
 
 export default function PatientMedicine(props) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [medicines, setMedicines] = useState(null);
 
@@ -38,8 +39,8 @@ export default function PatientMedicine(props) {
           withCredentials: true,
           credentials: "include",
         });
-
-        console.log('Medicines:')
+        
+        // Selecting the required data from the response
         const list = [];
         const prescriptions = response.data;
         prescriptions.forEach((prescription) => {
@@ -55,6 +56,16 @@ export default function PatientMedicine(props) {
         setMedicines(list);
       } catch (err) {
         console.log(err);
+        if(err.response && err.response.status === 401) {
+          console.log('Some error', err.response?.status)
+          props.settoastCondition({
+            status: "info",
+            message: "Please Login to proceed!!!",
+          });
+          props.setToastShow(true);
+          setLoading(false);
+          navigate("/");
+        }
       } finally {
         setLoading(false);
       }

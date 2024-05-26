@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const apiUrl = "http://localhost:5000";
+
+
 const PatientReports = (props) => {
   const navigate = useNavigate();
   const [dob, setDob] = useState("01/01/2006");
@@ -62,6 +64,7 @@ const PatientReports = (props) => {
     async function getpatient() {
       const response = await axios.get(`${apiUrl}/getpatient`, {
         withCredentials: true,
+        credentials: "include",
       });
       const data = response.data
       if (data.AuthError) {
@@ -81,6 +84,7 @@ const PatientReports = (props) => {
     }
     getpatient();
   }, [dob]);
+
 
   return (
     <div className="col-span-10">
@@ -129,11 +133,13 @@ const PatientReports = (props) => {
                   <hr></hr>
                 </div>
                 {prescriptions.length > 0 ? (
-                  prescriptions.map((prescription) => {
+                  prescriptions.map((prescription, index) => {
                     return (
                       <PatientReportCompo
                         prescription={prescription}
                         setPrescriptionID={props.setPrescriptionID}
+                        prescriptionId={prescription._id}
+                        key={index}
                       />
                     );
                   })
