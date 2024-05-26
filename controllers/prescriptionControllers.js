@@ -44,8 +44,8 @@ module.exports.view_prescription = async (req, res) => {
   try {
     const patient = await Patient.findOne({ healthID });
     const prescription = patient.prescriptions.filter((pres) => pres._id == id);
-    res.status(200).json({ prescription });
+    res.status(200).json({ prescription: prescription[0], patient });
   } catch (err) {
-    res.status(404).json({ error: "Something Went Wrong" });
+    res.status(500).json({ error: "Something Went Wrong" });
   }
 };

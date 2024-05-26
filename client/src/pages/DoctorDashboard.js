@@ -70,7 +70,6 @@ const DoctorDashboard = (props) => {
           crossDomain: true,
         })
         setDoctor(response.data.doctor);
-        console.log('Getting doctor data',  response.data)
       } catch (error) {
         console.log(error.message);
         navigate("/");
@@ -125,7 +124,6 @@ data=data.data;
           });
           props.setToastShow(true);
         } else {
-          console.log(patient)
           setPatient(data.patient);
           setDob(convertDatetoString(patient.dob));
           setLoading(false);
@@ -148,7 +146,6 @@ data=data.data;
     if (props.healthID.length >= 1) {
       let data = await axios.get(`${apiUrl}/searchpatient/${props.healthID}`,{withCredentials:true});
     data=data.data
-     console.log("In patient search",data);
 
       if (data.patient.prescriptions) {
         setPrescriptions(data.patient.prescriptions.reverse());

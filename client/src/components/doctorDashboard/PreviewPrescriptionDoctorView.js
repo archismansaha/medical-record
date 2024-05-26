@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const PreviewPrescriptionDoctorView = (props) => {
+  const navigate = useNavigate();
   // printprescriptionstart
 
   // printprescriptionend
-  console.log('Props = ', props)
+
   const convertDatetoString = (dateString) => {
     let date = new Date(dateString);
     let day = date.getDate();
@@ -18,7 +19,6 @@ const PreviewPrescriptionDoctorView = (props) => {
     return `${day}/${month}/${year}`;
   };
 
-  const navigate = useNavigate();
   const [prescription, setPrescription] = useState({
     doctor: "",
     doctormobile: "",
@@ -64,14 +64,13 @@ const PreviewPrescriptionDoctorView = (props) => {
   });
 
   useEffect(() => {
-    async function fetchprescription() {
+    async function fetchPrescriptionData() {
       const data = await axios.get(
         "http://localhost:5000" +
-          `/viewprescription/${props.healthID}/${props.prescriptionID}`,
+        `/viewprescription/${props.healthID}/${props.prescriptionID}`,
         { withCredentials: true, credentials: "include" }
       );
 
-      console.log('After fetching prescription:', data.data)
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -88,40 +87,15 @@ const PreviewPrescriptionDoctorView = (props) => {
         props.setToastShow(true);
         navigate("/doctor/dashboard");
       } else {
-        setPrescription(data.prescription[0]);
-      }
-    }
-
-    async function fetchpatient() {
-      const data = await axios.get(
-        "http://localhost:5000" + `/searchpatient/${props.healthID}`,
-        { withCredentials: true, credentials: "include" }
-      );
-      console.log("Getting patient data:", data);
-
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to proceed!!!",
-        });
-        props.setToastShow(true);
-        navigate("/");
-      } else {
+        setPrescription(data.data.prescription);
         setPatient(data.data.patient);
       }
     }
-    // fetchprescription();
-    // fetchpatient();
 
-    (async () => {
-      await fetchpatient();
-      await fetchprescription();
-    })();
+    fetchPrescriptionData();
+    return () => {}
   }, []);
 
-  // console.log('Prescription:', prescription)
-  // console.log('Patient:', patient)
-  console.log("Showing Prescription");
 
   return (
     <div
@@ -240,15 +214,15 @@ const PreviewPrescriptionDoctorView = (props) => {
                 <div>
                   <div className="flex">
                     <h2>morning :</h2>
-                    <h2>{`${medicine.dosage.morning.quantity} (${medicine.dosage.morning.remark})`}</h2>
+                    <h2>{`${medicine.dosage.morning.quantity} ${medicine.dosage.morning.remark}`}</h2>
                   </div>
                   <div className="flex">
                     <h2>afternoon :</h2>
-                    <h2>{`${medicine.dosage.afternoon.quantity} (${medicine.dosage.afternoon.remark})`}</h2>
+                    <h2>{`${medicine.dosage.afternoon.quantity} ${medicine.dosage.afternoon.remark}`}</h2>
                   </div>
                   <div className="flex">
                     <h2>night :</h2>
-                    <h2>{`${medicine.dosage.evening.quantity} (${medicine.dosage.evening.remark})`}</h2>
+                    <h2>{`${medicine.dosage.evening.quantity} ${medicine.dosage.evening.remark}`}</h2>
                   </div>
                 </div>
                 <div>

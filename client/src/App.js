@@ -54,6 +54,7 @@ function App() {
     setToastShow(false);
   }
 
+  console.log('Current prescription ID:', prescriptionID)
 
   return (
     <div className="bg-bgprimary flex">
@@ -95,6 +96,7 @@ function App() {
             />
           }
         />
+
         <Route
           path="patient"
           element={

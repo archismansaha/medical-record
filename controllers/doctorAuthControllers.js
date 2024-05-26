@@ -61,6 +61,6 @@ module.exports.doctor_login = async (req, res) => {
     req.headers.authorization = token;
     res.status(200).json({ doctor });
   } catch (err) {
-    res.status(404).json({ err });
+    res.status(500).json({ err });
   }
 };
