@@ -3,6 +3,7 @@ import admin_profile from "../assets/img/dashboard/admin_profile.png";
 import search from "../assets/img/dashboard/search2.png";
 import Footer from "../components/landingPage/Footer";
 import PatientList from "../components/adminDashboard/PatientList";
+import Dashboard from "../components/adminDashboard/DashBoard";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios'
@@ -47,7 +48,7 @@ const AdminDashboard = (props) => {
           {/* dashboard today start */}
           <div className="">
             <div className="flex  h-12 m-2 bg-bgprimary rounded ml-6 ">
-              <Link to="/AdminDash">
+              <Link to="/admin/dashboard">
                 <div>
                   <h1 className="text-2xl font-poppins font-bold p-2 ">
                     Admin Dashboard
@@ -83,7 +84,7 @@ const AdminDashboard = (props) => {
 
             {/* Just After the navbar */}
             <div className="border">
-              <PatientList></PatientList>
+            <Dashboard/>
             </div>
           </div>
         </div>

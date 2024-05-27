@@ -8,7 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import axios from "axios";
-
+import Dashboard from "../components/doctorDashboard/Dashboard";
 const DoctorDashboard = (props) => {
   const apiUrl = "http://localhost:5000";
 
@@ -17,6 +17,7 @@ const DoctorDashboard = (props) => {
   const [dob, setDob] = useState("01/01/2006");
   const [patient, setPatient] = useState({});
   const [prescriptions, setPrescriptions] = useState([{}]);
+  const [passPrescriptions, setPassPrescriptions] = useState([{}]);
   const [doctor, setDoctor] = useState({
     name: {
       firstName: "",
@@ -48,6 +49,7 @@ const DoctorDashboard = (props) => {
       state: "",
       pincode: "",
     },
+    prescriptions:[],
     specialization: [{ special: "" }],
     password: "",
     _id: "",
@@ -62,16 +64,24 @@ const DoctorDashboard = (props) => {
   };
 
   useEffect(() => {
+
     async function getdoctor() {
+      // setLoading(true);
       try {
+       
         const response = await axios.get(`${apiUrl}/getdoctor`, {
           withCredentials: true,
           credentials: "include",
           crossDomain: true,
         })
+        const data=response.data.doctor;
         setDoctor(response.data.doctor);
+        // if(data.prescriptions){console.log(doctor.prescriptions);setPassPrescriptions(doctor.prescriptions)}
+        // console.log("PRescription",passPrescriptions,data.prescriptions);
+        // setLoading(false);
       } catch (error) {
         console.log(error.message);
+        setLoading(false);
         navigate("/");
       }
 
@@ -135,9 +145,10 @@ const DoctorDashboard = (props) => {
       }
       setLoading(false);
     }
+
     getdoctor();
     getpatient();
-  }, [dob]);
+  }, []);
 
 
   const searchPatient = async (e) => {
@@ -389,8 +400,8 @@ const DoctorDashboard = (props) => {
               <div></div>
             </div>
           ) : (
-            <div className="text-xl flex justify-center items-center font-bold my-60 border">
-              First Load data
+            <div className="text-xl justify-center items-center font-bold border">
+           <Dashboard/>
             </div>
           )}
 

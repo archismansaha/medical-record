@@ -137,7 +137,7 @@ export default function Login(props) {
     catch(err){
       setUsernameError(email);
       setPasswordError(password);
-      if(err.response.status===404){
+      if(err){
         console.log("HERE")
         props.setToastShow(true);
       props.settoastCondition({
