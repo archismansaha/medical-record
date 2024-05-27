@@ -58,6 +58,7 @@ const PatientReportsDoctorView = (props) => {
   useEffect(() => {
     async function getdoctor() {
       const data = await axios.get("http://localhost:5000"+"/getdoctor",{withCredentials:true, credentials:"include"});
+      console.log('Doctor reports',  data.data);
       
       if (data.AuthError) {
         props.settoastCondition({
@@ -67,11 +68,11 @@ const PatientReportsDoctorView = (props) => {
         props.setToastShow(true);
         navigate("/");
       } else {
-        setDoctor(data.doctor);
+        setDoctor(data.data.doctor);
       }
     }
     async function getpatient() {
-      if (props.healthID.length === 12) {
+      if (props.healthID.length > 0) {
         const res = await fetch("http://localhost:5000"+`/searchpatient/${props.healthID}`, {
           withCredentials: true,
           credentials: "include",
@@ -100,9 +101,11 @@ const PatientReportsDoctorView = (props) => {
     getpatient();
   }, [dob]);
 
+  console.log('Props', props);
+
   return (
     <div className="col-span-10">
-      {props.healthID.length === 12 ? (
+      {props.healthID.length > 0 ? (
         <div className=" px-12">
           <div className="h-screen">
             <div className="font-poppins   mainf">

@@ -27,6 +27,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Page404 from "./pages/Page_404";
+import DoctorReports from "./components/doctorDashboard/DoctorReports";
+
 
 function App() {
   const [healthID, setHealthID] = useState("");
@@ -55,6 +57,7 @@ function App() {
   }
 
   console.log('Current prescription ID:', prescriptionID)
+  console.log('Current health ID:', healthID)
 
   return (
     <div className="bg-bgprimary flex">
@@ -192,7 +195,7 @@ function App() {
           <Route
             path="reports"
             element={
-              <PatientReportsDoctorView
+              <DoctorReports
                 healthID={healthID}
                 setPrescriptionID={setPrescriptionID}
                 settoastCondition={settoastCondition}
@@ -200,6 +203,17 @@ function App() {
               />
             }
           />
+          {/* <Route
+            path="reports2"
+            element={
+              <PatientReportsDoctorView
+                healthID={healthID}
+                setPrescriptionID={setPrescriptionID}
+                settoastCondition={settoastCondition}
+                setToastShow={setToastShow}
+              />
+            }
+          /> */}
           <Route
             path="history"
             element={

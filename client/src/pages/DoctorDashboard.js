@@ -103,7 +103,7 @@ const DoctorDashboard = (props) => {
           credentials: "include",
         });
       
-data=data.data;
+        data=data.data;
         if (data.patient.prescriptions) {
           setPrescriptions(data.patient.prescriptions.reverse());
         }
@@ -389,8 +389,8 @@ data=data.data;
               <div></div>
             </div>
           ) : (
-            <div className="text-xl flex justify-center items-center font-bold my-60">
-              Search Patient to Add Diagnosis
+            <div className="text-xl flex justify-center items-center font-bold my-60 border">
+              First Load data
             </div>
           )}
 
