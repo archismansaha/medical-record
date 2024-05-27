@@ -4,7 +4,7 @@ import plus_logo from "../../assets/img/dashboard/add2_pbl.png";
 import minus_logo from "../../assets/img/dashboard/minus2_pbl.png";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
-
+import axios from "axios"
 
 export default function Register(props) {
   const apiUrl = 'http://localhost:5000'
@@ -69,29 +69,13 @@ export default function Register(props) {
     setPasswordError("");
     if (doctor.password === confirmPassword) {
       setLoading(true);
-      const res = await fetch(`${apiUrl}/register/doctor`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(doctor),
-      });
-
-      const data = await res.json();
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to proceed!!!",
+      let data = null;
+      try{
+        data=await axios.post(`${apiUrl}/register/doctor`,doctor, {
+          withCredentials: true,
+          credentials: "include",
+          crossDomain: true,
         });
-        props.setToastShow(true);
-        navigate("/");
-      } else if (data.err) {
-        props.settoastCondition({
-          status: "error",
-          message: "Please enter all field properly!!!",
-        });
-        props.setToastShow(true);
-      } else {
         setLoading(false);
         props.settoastCondition({
           status: "success",
@@ -100,6 +84,15 @@ export default function Register(props) {
         props.setToastShow(true);
         navigate("/admin/dashboard");
       }
+      catch(error){
+        props.settoastCondition({
+          status: "error",
+          message: `Some error occurred while registering . Try again !!!`,
+        });
+        props.setToastShow(true);
+        setLoading(false);
+      }    
+
     } else {
       setPasswordError("Password Doesn't Matches");
     }
@@ -607,7 +600,7 @@ export default function Register(props) {
               </label>
               <input
                 type="password"
-                id="password"
+                id="password1"
                 class="bg-blue-100 h-10  rounded pl-4 "
                 required
                 placeholder="Confirm password"

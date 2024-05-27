@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PatientListCompo from "./PatientListCompo";
+import axios from "axios"
 const apiUrl = 'http://localhost:5000'
-
 const PatientList = (props) => {
   const navigate = useNavigate();
   const [patientList, setPatientList] = useState([]);
 
   useEffect(() => {
     async function fetchPatientList() {
-      const res = await fetch(apiUrl+"/patientlist", {
+      const res = await axios.get(apiUrl+"/patientlist", {
         withCredentials: true,
         credentials: "include",
       });
-      const data = await res.json();
+      const data = await res.data;
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -26,7 +26,7 @@ const PatientList = (props) => {
       }
     }
     fetchPatientList();
-  }, [patientList]);
+  }, []);
 
   return (
     <div className="m-4 mt-4 font-poppins col-span-10">

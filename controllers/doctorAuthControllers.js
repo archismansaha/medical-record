@@ -3,23 +3,24 @@ const { createToken } = require("../utils/createToken");
 const maxAge = 3 * 24 * 60 * 60;
 
 module.exports.doctor_register = async (req, res) => {
-  const education = Object.values(req.body.education);
-  const specialization = Object.values(req.body.specialization);
-  const {
-    name,
-    org,
-    orgAddress,
-    dob,
-    mobile,
-    email,
-    adharCard,
-    bloodGroup,
-    address,
-    password,
-    orgNumber,
-    emergencyno,
-  } = req.body;
+
   try {
+    const education =req.body.education;
+    const specialization = req.body.specialization;
+    const {
+      name,
+      org,
+      orgAddress,
+      dob,
+      mobile,
+      email,
+      adharCard,
+      bloodGroup,
+      address,
+      password,
+      orgNumber,
+      emergencyno,
+    } = req.body;
     const doctor = await Doctor.create({
       name,
       org,

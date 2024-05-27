@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/admin");
 
 const requireAdminAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
+  try{
+     const token = req.cookies.jwt;
+  console.log("token",token);
   if (token) {
     jwt.verify(token, "SECRET", async (err, decodedToken) => {
       if (err) {
@@ -18,6 +20,10 @@ const requireAdminAuth = (req, res, next) => {
     let AuthError = { error: "Admin is not authenticated!" };
     res.status(401).send({ AuthError });
   }
+}
+catch(err){
+  console.error("error")
+}
 };
 
 module.exports = { requireAdminAuth };

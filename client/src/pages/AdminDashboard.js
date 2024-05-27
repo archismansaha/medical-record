@@ -15,11 +15,18 @@ const AdminDashboard = (props) => {
 
   useEffect(() => {
     async function fetchAdmin() {
-      const res = await fetch(`${apiUrl}/getadmin`, {
+      let data = null;
+      try{
+        
+        data=await axios.get(`${apiUrl}/getadmin`, {
         withCredentials: true,
         credentials: "include",
       });
-      const data = await res.json();
+      console.log(data)
+      }
+      catch (e){
+        console.log("ERROR",e)
+      } 
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -28,7 +35,7 @@ const AdminDashboard = (props) => {
         props.setToastShow(true);
         navigate("/");
       }
-      setAdminEmail(data.admin.email);
+      setAdminEmail(data.data.admin.email);
     }
     fetchAdmin();
   }, []);

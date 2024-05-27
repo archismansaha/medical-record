@@ -29,7 +29,13 @@ module.exports.admin_login = async (req, res) => {
   try {
     const admin = await Admin.login(email, password);
     const token = createToken(admin._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie("jwt", token, {
+      maxAge: 90000000, // 14 minutes
+      httpOnly: true,
+      // for https sites only
+      sameSite: "none",
+      secure: true,
+    });
     res.status(200).json({ admin });
   } catch (err) {
     const errors = handleError(err);
@@ -41,7 +47,7 @@ module.exports.auth = async (req, res) => {
   if (req.cookies.jwt) {
     const token = req.cookies.jwt;
     if (token) {
-      jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
+      jwt.verify(token,"SECRET", async (err, decodedToken) => {
         if (err) {
           res.status(100).json({ msg: "Proceed to login" });
         } else {

@@ -5,6 +5,9 @@ const {
   delete_patient,
 } = require("../controllers/deleteControllers");
 const {
+  getPatientsData
+} = require("../controllers/adminController");
+const {
   view_patientlist,
   view_doctorlist,
 } = require("../controllers/fetchlistControllers");
@@ -22,7 +25,7 @@ const router = Router();
 router.delete("/deletedoctor/:id", requireAdminAuth, delete_doctor);
 router.delete("/deletepatient/:healthID", requireAdminAuth, delete_patient);
 router.get("/getadmin", requireAdminAuth, get_admin);
-
+router.get("/getdetails", getPatientsData);
 router.get("/doctorlist", requireAdminAuth, view_doctorlist);
 router.get("/patientlist", requireAdminAuth, view_patientlist);
 
