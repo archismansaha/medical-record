@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { isEmail } = require("validator");
+const prescriptionSchema = require("./prescription");
 
 const doctorSchema = new mongoose.Schema({
   name: {
@@ -127,6 +128,7 @@ const doctorSchema = new mongoose.Schema({
     required: [true, "Please enter Mobile Number"],
    // minlength: [10, "Please Enter a valid Mobile Number"],
   },
+  prescriptions: [prescriptionSchema],
 });
 
 doctorSchema.pre("save", async function (next) {

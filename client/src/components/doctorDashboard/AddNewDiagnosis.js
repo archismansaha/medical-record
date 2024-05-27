@@ -93,7 +93,7 @@ const AddNewDiagnosis = (props) => {
         withCredentials: true,
       });
 
-      const data = response.data
+      const data = response.data;
       if (data.AuthError) {
         props.settoastCondition({
           status: "info",
@@ -117,13 +117,18 @@ const AddNewDiagnosis = (props) => {
     e.preventDefault();
     // console.log(prescription);
     // console.log('Patient ID:', props.healthID);
-    
-    setLoading(true);
-    const response = await axios.post(`http://localhost:5000/prescription/${props.healthID}`,prescription, {
-      withCredentials: true,
-    });
 
-    const data = response.data
+    setLoading(true);
+    const response = await axios.post(
+      `http://localhost:5000/prescription/${props.healthID}`,
+      prescription,
+      {
+        withCredentials: true,
+        credentials: "include",
+      }
+    );
+
+    const data = response.data;
     // const res = await fetch(`http://localhost:5000/prescription/${props.healthID}`, {
     //   method: "POST",
     //   headers: {

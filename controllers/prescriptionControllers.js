@@ -1,4 +1,5 @@
 const Patient = require("../models/patient");
+const Doctor = require("../models/doctor");
 
 module.exports.add_prescription = async (req, res) => {
   const healthID = req.params.healthID;
@@ -13,8 +14,7 @@ module.exports.add_prescription = async (req, res) => {
 
 
   try {
-    const patient = await Patient.findOneAndUpdate(
-      { healthID },
+    const patient = await Patient.findOneAndUpdate({ healthID },
       {
         $push: {
           prescriptions: {
@@ -32,6 +32,25 @@ module.exports.add_prescription = async (req, res) => {
         },
       }
     );
+
+    const doctorID = req.doctor._id
+    const doctor = await Doctor.findOneAndUpdate({ _id: doctorID }, {
+      $push: {
+        prescriptions: {
+          doctor,
+          doctormobile,
+          hospital,
+          notes,
+          diagnosis,
+          procedureConducted,
+          chiefComplaints,
+          medicines,
+          investigations,
+          advices,
+        },
+      },
+    }, { new: true });
+
     res.status(200).json({ patient });
   } catch (err) {
     res.status(404).json({ msg: "Something Went Wrong!" });
