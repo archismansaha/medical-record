@@ -37,7 +37,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-const dbURI = process.env.DATABASE_URL||"mongodb+srv://rajdeep12:rajdeep12@cluster0.j1ja8e1.mongodb.net/medace";
+const dbURI = process.env.DATABASE_URL||"";
 const port = process.env.PORT || 5000;
 app.use(authRoutes);
 app.use(registerRoute);
