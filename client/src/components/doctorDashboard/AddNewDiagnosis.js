@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 import axios from "axios";
 const apiUrl = "http://localhost:5000";
+
 const AddNewDiagnosis = (props) => {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
@@ -91,6 +92,7 @@ const AddNewDiagnosis = (props) => {
     async function getDoctor() {
       const response = await axios.get(`http://localhost:5000/getdoctor`, {
         withCredentials: true,
+        credentials: "include",
       });
 
       const data = response.data;

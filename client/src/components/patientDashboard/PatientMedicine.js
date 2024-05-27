@@ -57,7 +57,6 @@ export default function PatientMedicine(props) {
       } catch (err) {
         console.log(err);
         if(err.response && err.response.status === 401) {
-          console.log('Some error', err.response?.status)
           props.settoastCondition({
             status: "info",
             message: "Please Login to proceed!!!",

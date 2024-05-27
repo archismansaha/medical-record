@@ -398,8 +398,8 @@ const DoctorDashboard = (props) => {
           {Object.keys(patient).length !== 0 ? (
             <div className="font-poppins m-4  ">
               <div className="flex justify-between m-8">
-                <div className="font-bold text-xl ml-4">
-                  <h1>Patient Dashboard</h1>
+                <div className="font-bold text-xl ml-2">
+                  <h1>Patient Reports</h1>
                 </div>
                 <Link to="/doctor/addDiagno">
                   <div className=" flex  bg-primary pl-0 pr-3 py-1 items-center justify-items-center  rounded font-semibold font-poppins shadow-sm hover:bg-bgsecondary   ">

@@ -96,6 +96,7 @@ const PreviewPrescriptionDoctorView = (props) => {
     return () => {}
   }, []);
 
+  console.log('Prescription doctor view')
 
   return (
     <div

@@ -13,6 +13,9 @@ const {
   search_patient,
   get_doctor,
 } = require("../controllers/doctorControllers");
+const getDoctorReports = require('../controllers/doctorReports')
+const Patient = require('../models/patient')
+const Doctor = require('../models/doctor')
 
 const router = Router();
 
@@ -36,5 +39,17 @@ router.get(
   view_prescription
 );
 router.get("/getdoctor", requireDoctorAuth, get_doctor);
+router.get('/doctor-reports', requireDoctorAuth, getDoctorReports);
+
+router.get('/test', async (req, res) => {
+  console.log('Test route hit')
+  const patient = await Patient.findOne({ healthID: '123456' })
+  const doctor = await Doctor.findOneAndUpdate(
+    { email: 'json@gmail.com' },
+    { $set: { prescriptions: patient.prescriptions } },
+    { new: true }
+  );
+  res.json({ prescriptions: doctor.prescriptions })
+})
 
 module.exports = router;
