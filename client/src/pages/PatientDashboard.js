@@ -337,7 +337,7 @@ const PatientDashboard = (props) => {
                       <h1>Diagnosis : </h1>
                     </div>
                     <div className="ml-2">
-                      <h1>{prescriptions[0].diagnosis}</h1>
+                      <h1>{prescriptions[prescriptions.length-1].diagnosis}</h1>
                     </div>
                   </div>
                   <Link
