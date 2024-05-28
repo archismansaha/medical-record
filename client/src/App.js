@@ -5,6 +5,7 @@ import RegisterPatient from "./components/landingPage/RegisterPatient";
 import RegisterDoctor from "./components/adminDashboard/RegisterDoctor";
 import LandingPage from "./pages/LandingPage";
 import PatientDashboard from "./pages/PatientDashboard";
+import PatientDashboard1 from "./components/patientDashboard/PatientDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import PatientProfile from "./components/patientDashboard/PatientProfile";
@@ -123,7 +124,7 @@ function App() {
           <Route
             path="dashboard"
             element={
-              <PatientReports
+              <PatientDashboard
                 setPrescriptionID={setPrescriptionID}
                 settoastCondition={settoastCondition}
                 setToastShow={setToastShow}

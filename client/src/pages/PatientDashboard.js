@@ -8,7 +8,8 @@ import eye from "../assets/img/dashboard/eye.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const apiUrl = "http://localhost:5000";
+import { Bar, Pie } from 'react-chartjs-2';
+  const apiUrl = "http://localhost:5000";
 
 const PatientDashboard = (props) => {
   const navigate = useNavigate();
@@ -95,7 +96,137 @@ const PatientDashboard = (props) => {
     props.setPrescriptionID(prescriptions[0]._id);
   }
 
-  console.log(prescriptions)
+  const renderCharts = () => {
+    if (!patient || !prescriptions) return null;
+  
+    const chiefComplaints = {};
+    const prescribedMedications={};
+    const diagnosisByDate = {};
+    prescriptions.forEach((prescription) => {
+      if (!prescription.chiefComplaints) return; // Check if chiefComplaints exists
+      prescription.chiefComplaints.forEach((complaint) => {
+        if (chiefComplaints[complaint.complaint]) {
+          chiefComplaints[complaint.complaint]++;
+        } else {
+          chiefComplaints[complaint.complaint] = 1;
+        }
+      });
+
+      prescription.medicines.forEach((medication) => {
+        if (prescribedMedications[medication.medicineName]) {
+          prescribedMedications[medication.medicineName      ]++;
+        } else {
+          prescribedMedications[medication.medicineName          ] = 1;
+        }
+      });
+
+      const updatedAtDate = new Date(prescription.updatedAt);
+    const formattedDate = `${updatedAtDate.getDate()}/${updatedAtDate.getMonth() + 1}/${updatedAtDate.getFullYear()}`;
+
+    if (diagnosisByDate[formattedDate]) {
+      diagnosisByDate[formattedDate].push({ date: formattedDate, diagnosis: prescription.diagnosis });
+    } else {
+      diagnosisByDate[formattedDate] = [{ date: formattedDate, diagnosis: prescription.diagnosis }];
+    }
+    });
+    const prescribedMedicationsChartData = {
+      labels: Object.keys(prescribedMedications),
+      datasets: [
+        {
+          data: Object.values(prescribedMedications),
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+          ],
+        },
+      ],
+    };
+    // Example: Format data for bar chart
+    const barChartData = {
+      labels: Object.keys(chiefComplaints),
+      datasets: [
+        {
+          label: 'Chief Complaints',
+          data: Object.values(chiefComplaints),
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  
+    // Example: Format data for pie chart
+    const pieChartData = {
+      labels: Object.keys(chiefComplaints),
+      datasets: [
+        {
+          data: Object.values(chiefComplaints),
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+          ],
+        },
+      ],
+    };
+    const diagnosesArray = Object.values(diagnosisByDate).reduce((acc, curr) => acc.concat(curr), []);
+
+    const diagnosisByDateChartData = {
+      labels: Object.keys(diagnosisByDate),
+      datasets: [
+        {
+          label: 'Diagnosis by Date',
+          data: Object.values(diagnosisByDate),
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  
+    return (
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center',justifyContent:"space-around" }}>
+  <div style={{ width: '80%', maxWidth: '600px', margin: '20px' }}>
+    <h2 style={{ textAlign: 'center' }}>Chief Complaints</h2>
+    <Bar data={barChartData} />
+  </div>
+  <div style={{ width: '80%', maxWidth: '600px', margin: '20px' }}>
+    <h2 style={{ textAlign: 'center' }}>PresCribed Medicines Distribution</h2>
+    <Pie data={prescribedMedicationsChartData} />
+  </div>
+  <div style={{  margin: '20px' }}>
+  <h2 style={{ textAlign: 'center' }}>Diagnosis by Date</h2>
+  <ul style={{ listStyle: 'none', padding: 0 }}>
+    {diagnosesArray.map((entry, index) => (
+      <li key={index} style={{ marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <span style={{ fontWeight: 'bold', marginRight: '10px' }}>{entry.date}:</span>
+        <span>{entry.diagnosis}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+</div>
+    );
+  };
 
   return (
     <div className="full-body col-span-10 h-screen">
@@ -235,71 +366,7 @@ const PatientDashboard = (props) => {
             <div></div>
           </div>
 
-          <div className="font-poppins m-4  ">
-            <div className="flex justify-between m-8">
-              <div className="font-bold text-xl ml-4">
-                <h1>Patient Dashboard</h1>
-              </div>
-            </div>
-            <div className="bg-white m-4 rounded-lg ">
-              <div className="grid grid-rows-2 p-6 gap-2 shadow">
-                <div className="grid grid-cols-4 font-bold  ">
-                  <div>
-                    <h1>Date</h1>
-                  </div>
-                  <div>
-                    <h1>Doctor Name</h1>
-                  </div>
-                  <div>
-                    <h1>Diagnosis</h1>
-                  </div>
-                  <div>
-                    <h1>Prescription</h1>
-                  </div>
-                  <hr></hr>
-                  <hr></hr>
-                  <hr></hr>
-                  <hr></hr>
-                </div>
-
-                {prescriptions.length > 0 ? (
-                  prescriptions.slice(0, 3).map((prescription, index) => {
-                    return (
-                      <div className="grid grid-cols-4" key={index}>
-                        <div>
-                          <h1>{convertDatetoString(prescription.createdAt)}</h1>
-                        </div>
-                        <div className="flex">
-                          <h1>Dr. </h1>
-                          <h1>{prescription.doctor}</h1>
-                        </div>
-                        <div>
-                          <h1>{prescription.diagnosis}</h1>
-                        </div>
-                        <Link
-                          to="/patient/prescription"
-                          onClick={() =>
-                            props.setPrescriptionID(prescription._id)
-                          }
-                        >
-                          <div className=" flex  justify-center bg-primary py-1 px-3 rounded font-semibold font-poppins shadow-sm hover:bg-bgsecondary w-2/5   ">
-                            <img
-                              src={eye}
-                              className="h-4 my-auto"
-                              alt="preview"
-                            ></img>
-                            <button className="font-bold ml-2">Preview </button>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="mx-auto mt-3 mb-5">No Records Found...</div>
-                )}
-              </div>
-            </div>
-          </div>
+          {renderCharts()}
         </div>
       </div>
       <div className="mt-16 mb-0">
