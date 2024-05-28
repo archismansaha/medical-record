@@ -73,7 +73,7 @@ const PreviewPrescriptionDoctorView = (props) => {
         `/viewprescription/${props.healthID}/${props.prescriptionID}`,
         { withCredentials: true, credentials: "include" }
       );
-
+      console.log('Doctor view pres', data.data)
 
       if (data.AuthError) {
         props.settoastCondition({
@@ -180,7 +180,7 @@ const PreviewPrescriptionDoctorView = (props) => {
           <div className="col-span-2">
             <div className="flex">
               <h1 className="font-bold">Health ID : </h1>
-              <h4 className="ml-2">{props.healthID}</h4>
+              <h4 className="ml-2">{patient.healthID}</h4>
             </div>
             <div className="flex">
               <h1 className="font-bold">Patient Name : </h1>

@@ -21,7 +21,6 @@ const prescriptionSchema = new mongoose.Schema(
     doctormobile: {
       type: String,
       required: [true, "Please enter Mobile Number"],
-      minlength: [10, "Please Enter a valid Mobile Number"],
     },
     patientName: {
       type: String,

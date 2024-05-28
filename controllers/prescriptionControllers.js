@@ -2,24 +2,35 @@ const Patient = require("../models/patient");
 const Doctor = require("../models/doctor");
 
 module.exports.add_prescription = async (req, res) => {
-  const healthID = req.params.healthID;
-  const chiefComplaints = Object.values(req.body.chiefComplaints);
-  const medicines = Object.values(req.body.medicines);
-  const investigations = Object.values(req.body.investigations);
-  const advices = Object.values(req.body.advices);
-  const notes = req.body.notes.note;
-  const diagnosis = req.body.diagnosis.diagno;
-  const procedureConducted = req.body.procedureConducted.procedure;
-  const { doctor, doctormobile, hospital } = req.body;
-
-
   try {
+    const healthID = req.params.healthID;
+    const doctorName = req.doctor.name;
+    const doctor = doctorName.firstName + " " + doctorName.surName;
+    const doctormobile = req.doctor.mobile;
+    const hospital = {
+      name: req.doctor.org,
+      address: req.doctor.orgAddress.district,
+      mobile: req.doctor.orgNumber
+    }
+
+    const chiefComplaints = Object.values(req.body.chiefComplaints);
+    const medicines = Object.values(req.body.medicines);
+    const investigations = Object.values(req.body.investigations);
+    const advices = Object.values(req.body.advices);
+    const notes = req.body.notes.note;
+    const diagnosis = req.body.diagnosis.diagno;
+    const procedureConducted = req.body.procedureConducted.procedure;
+
+    const patientDoc = await Patient.findOne({ healthID });
+    const patientName = patientDoc.name.firstName + " " + patientDoc.name.surName;
+
     const patient = await Patient.findOneAndUpdate({ healthID },
       {
         $push: {
           prescriptions: {
             doctor,
             doctormobile,
+            patientName,
             hospital,
             notes,
             diagnosis,
@@ -30,15 +41,16 @@ module.exports.add_prescription = async (req, res) => {
             advices,
           },
         },
-      }
+      }, { new: true }
     );
 
     const doctorID = req.doctor._id
-    const doctor = await Doctor.findOneAndUpdate({ _id: doctorID }, {
+    const doctorDoc = await Doctor.findOneAndUpdate({ _id: doctorID }, {
       $push: {
         prescriptions: {
           doctor,
           doctormobile,
+          patientName,
           hospital,
           notes,
           diagnosis,
@@ -53,7 +65,8 @@ module.exports.add_prescription = async (req, res) => {
 
     res.status(200).json({ patient });
   } catch (err) {
-    res.status(404).json({ msg: "Something Went Wrong!" });
+    console.log('Error while adding prescription', err)
+    res.status(500).json({ msg: "Something Went Wrong!" });
   }
 };
 

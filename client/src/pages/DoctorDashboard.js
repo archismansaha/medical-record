@@ -64,11 +64,9 @@ const DoctorDashboard = (props) => {
   };
 
   useEffect(() => {
-
     async function getdoctor() {
       // setLoading(true);
       try {
-       
         const response = await axios.get(`${apiUrl}/getdoctor`, {
           withCredentials: true,
           credentials: "include",

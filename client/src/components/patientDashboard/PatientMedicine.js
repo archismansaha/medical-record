@@ -91,7 +91,7 @@ export default function PatientMedicine(props) {
   return (
     <div
       className="patient-medicine col-span-10"
-      style={{ padding: "3rem 4rem", width: "100%" }}
+      style={{ padding: "3rem 4rem", width: "100%", overflow: 'auto'}}
     >
       <div style={{ margin: "0 auto" }}>
         <Typography

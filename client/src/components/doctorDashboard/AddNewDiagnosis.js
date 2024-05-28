@@ -7,7 +7,9 @@ import ReactLoading from "react-loading";
 import axios from "axios";
 const apiUrl = "http://localhost:5000";
 
+
 const AddNewDiagnosis = (props) => {
+  console.log('Add new diagnosis props:', props)
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
   const [doctor, setDoctor] = useState({});
@@ -72,6 +74,7 @@ const AddNewDiagnosis = (props) => {
   };
 
   const [prescription, setPrescription] = useState({
+    healthID: props.healthID,
     doctor: "",
     doctormobile: "",
     hospital: {
@@ -88,45 +91,48 @@ const AddNewDiagnosis = (props) => {
     advices: advices,
   });
 
-  useEffect(() => {
-    async function getDoctor() {
-      const response = await axios.get(`http://localhost:5000/getdoctor`, {
-        withCredentials: true,
-        credentials: "include",
-      });
+  // useEffect(() => {
+  //   async function getDoctor() {
+  //     const response = await axios.get(`http://localhost:5000/getdoctor`, {
+  //       withCredentials: true,
+  //       credentials: "include",
+  //     });
 
-      const data = response.data;
-      if (data.AuthError) {
-        props.settoastCondition({
-          status: "info",
-          message: "Please Login to proceed!!!",
-        });
-        props.setToastShow(true);
-      }
-      setDoctor(data.doctor);
-      const tempprescription = { ...prescription };
-      tempprescription.doctor = `${doctor.name.firstName} ${doctor.name.middleName} ${doctor.name.surName}`;
-      tempprescription.hospital.name = doctor.org;
-      tempprescription.hospital.address = `${doctor.orgAddress.building}, ${doctor.orgAddress.city}, ${doctor.orgAddress.taluka}, ${doctor.orgAddress.district}, ${doctor.orgAddress.state}- ${doctor.orgAddress.pincode}`;
-      tempprescription.doctormobile = doctor.mobile;
-      tempprescription.hospital.mobile = doctor.orgNumber;
-      setPrescription(tempprescription);
-    }
-    getDoctor();
-  }, [doctor]);
+  //     const data = response.data;
+  //     if (data.AuthError) {
+  //       props.settoastCondition({
+  //         status: "info",
+  //         message: "Please Login to proceed!!!",
+  //       });
+  //       props.setToastShow(true);
+  //       setLoading(false);
+  //     }
+  //     setDoctor(data.doctor);
+  //     const tempprescription = { ...prescription };
+  //     tempprescription.doctor = `${doctor.name.firstName} ${doctor.name.middleName} ${doctor.name.surName}`;
+  //     tempprescription.hospital.name = doctor.org;
+  //     tempprescription.hospital.address = `${doctor.orgAddress.building}, ${doctor.orgAddress.city}, ${doctor.orgAddress.taluka}, ${doctor.orgAddress.district}, ${doctor.orgAddress.state}- ${doctor.orgAddress.pincode}`;
+  //     tempprescription.doctormobile = doctor.mobile;
+  //     tempprescription.hospital.mobile = doctor.orgNumber;
+  //     setPrescription(tempprescription);
+  //   }
+
+  //   getDoctor();
+  // }, []);
 
   const handleAddPrescription = async (e) => {
     e.preventDefault();
     // console.log(prescription);
     // console.log('Patient ID:', props.healthID);
 
-    setLoading(true);
+    // setLoading(true);
     const response = await axios.post(
       `http://localhost:5000/prescription/${props.healthID}`,
-      prescription,
+        prescription,
       {
         withCredentials: true,
         credentials: "include",
+        crossDomain: true,
       }
     );
 
