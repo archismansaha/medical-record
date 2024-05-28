@@ -68,3 +68,29 @@ module.exports.view_prescription = async (req, res) => {
     res.status(500).json({ error: "Something Went Wrong" });
   }
 };
+
+module.exports.view_prescription2 = async (req, res) => {
+  const { prescriptionID } = req.params
+  try {
+    let prescription = null;
+    let patient = null;
+    let flag = false;
+    
+    const patients = await Patient.find();
+    patients.forEach(currPatient => {
+      currPatient.prescriptions.forEach(pres => {
+        if (pres._id == prescriptionID) {
+          prescription = pres;
+          patient = currPatient;
+          flag = true;
+          return; // Exit the function
+        }
+      });
+      if(flag) return; // Exit the function
+    });
+    res.status(200).json({ prescription, patient });
+  } catch (err) {
+    console.log('Error while fetching prescriptions from doctor view', err)
+    res.status(500).json({ message: "Something Went Wrong" });
+  }
+}

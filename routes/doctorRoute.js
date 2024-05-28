@@ -7,6 +7,7 @@ const {
 const {
   add_prescription,
   view_prescription,
+  view_prescription2
 } = require("../controllers/prescriptionControllers");
 const { requireAdminAuth } = require("../middlewares/adminAuthMiddleware");
 const {
@@ -38,6 +39,7 @@ router.get(
   requireDoctorAuth,
   view_prescription
 );
+router.get('/doctor/:prescriptionID', view_prescription2);
 router.get("/getdoctor", requireDoctorAuth, get_doctor);
 router.get('/doctor-reports', requireDoctorAuth, getDoctorReports);
 

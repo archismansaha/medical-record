@@ -44,10 +44,6 @@ export default function DoctorReports(props) {
         }
 
         fetchReports();
-
-        return () => {
-            setPrescriptions(null);
-        }
     }, [])
 
     const formatDate = (dateString) => {
@@ -128,7 +124,10 @@ export default function DoctorReports(props) {
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{formatDate(prescription.updatedAt)}</TableCell>
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>
                                             <Link to={`/doctor/prescription`} className="btn btn-primary"
-                                                onClick={() => { props.setPrescriptionID(prescription._id) }}
+                                                onClick={() => { 
+                                                    props.setPrescriptionID(prescription._id); 
+                                                    props.setDoctorView(true);
+                                                }}
                                             >
                                                 Preview
                                             </Link>

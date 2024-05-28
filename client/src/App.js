@@ -31,6 +31,7 @@ import DoctorReports from "./components/doctorDashboard/DoctorReports";
 
 
 function App() {
+  const [doctorView, setDoctorView] = useState(false);
   const [healthID, setHealthID] = useState("");
   const [prescriptionID, setPrescriptionID] = useState("");
   const [toastShow, setToastShow] = useState(false);
@@ -57,7 +58,7 @@ function App() {
   }
 
   console.log('Current prescription ID:', prescriptionID)
-  console.log('Current health ID:', healthID)
+  console.log('Is doctor view:', doctorView)
 
   return (
     <div className="bg-bgprimary flex">
@@ -196,6 +197,7 @@ function App() {
             path="reports"
             element={
               <DoctorReports
+                setDoctorView={setDoctorView}
                 healthID={healthID}
                 setPrescriptionID={setPrescriptionID}
                 settoastCondition={settoastCondition}
@@ -249,6 +251,8 @@ function App() {
             path="prescription"
             element={
               <PreviewPrescriptionDoctorView
+                doctorView={doctorView}
+                setDoctorView={setDoctorView}
                 healthID={healthID}
                 prescriptionID={prescriptionID}
                 settoastCondition={settoastCondition}

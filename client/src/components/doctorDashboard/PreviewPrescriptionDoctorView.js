@@ -4,6 +4,8 @@ import Footer from "../landingPage/Footer";
 import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = "http://localhost:5000";
+
 
 const PreviewPrescriptionDoctorView = (props) => {
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ const PreviewPrescriptionDoctorView = (props) => {
     investigations: [{ investigation: "" }],
     advices: [{ advice: "" }],
   });
+
   const [patient, setPatient] = useState({
     name: {
       firstName: "",
@@ -92,11 +95,47 @@ const PreviewPrescriptionDoctorView = (props) => {
       }
     }
 
-    fetchPrescriptionData();
-    return () => {}
+    async function fetchPrescriptionData2() {
+      const data = await axios.get(`${apiUrl}/doctor/${props.prescriptionID}`,
+        { withCredentials: true, credentials: "include" }
+      );
+      console.log('Doctor view pres', data.data)
+
+      if (data.AuthError) {
+        props.settoastCondition({
+          status: "info",
+          message: "Please Login to proceed!!!",
+        });
+        props.setToastShow(true);
+        navigate("/");
+      } else if (data.error) {
+        props.settoastCondition({
+          status: "error",
+          message: "Something went Wrong!!!",
+        });
+        props.setToastShow(true);
+        navigate("/doctor/dashboard");
+      } else {
+        setPrescription(data.data.prescription);
+        setPatient(data.data.patient);
+      }
+    }
+
+    if(props.doctorView) {
+      fetchPrescriptionData2();
+    } else {
+      fetchPrescriptionData();
+      console.log('Doctor view')
+    }
+
+    return () => {
+      if(props.doctorView) {
+        props.setDoctorView(false);
+      }
+    }
   }, []);
 
-  console.log('Prescription doctor view')
+  console.log('Prescription doctor view', props)
 
   return (
     <div
