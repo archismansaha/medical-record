@@ -321,7 +321,7 @@ const PatientDashboard = (props) => {
                       <h1>Consultant Doctor :</h1>
                     </div>
                     <div className="ml-2">
-                      <h1>{`Dr. ${prescriptions[0].doctor}`}</h1>
+                      <h1>{`Dr. ${prescriptions[prescriptions.length-1].doctor}`}</h1>
                     </div>
                   </div>
                   <div className="flex">
@@ -329,7 +329,7 @@ const PatientDashboard = (props) => {
                       <h1>Date :</h1>
                     </div>
                     <div className="ml-2">
-                      <h1>{convertDatetoString(prescriptions[0].createdAt)}</h1>
+                      <h1>{convertDatetoString(prescriptions[prescriptions.length-1].createdAt)}</h1>
                     </div>
                   </div>
                   <div className="flex">
