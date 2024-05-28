@@ -1,5 +1,6 @@
 const Patient = require("../models/patient");
 const { createToken } = require("../utils/createToken");
+const { generateAccessToken } = require("../utils/patientAccessToken");
 
 const maxAge = 3 * 24 * 60 * 60;
 const handleError = (err) => {
@@ -47,13 +48,15 @@ module.exports.patient_register = async (req, res) => {
     contactPerson,
   } = req.body;
 
-  console.log("Patient Registering: ", req.body);
+  const originalHealthID = adharCard;
+  const objectId = '5f8d0d55b54764421b7156c1';
+  const healthID = generateAccessToken(new Date(), objectId, originalHealthID);
 
-  const healthID = adharCard;
   try {
     const patient = await Patient.create({
       name,
       healthID,
+      originalHealthID,
       dob,
       mobile,
       email,
@@ -76,7 +79,7 @@ module.exports.patient_register = async (req, res) => {
   } catch (err) {
     console.log("Catch Error", err);
     const errors = handleError(err);
-    res.status(404).json({ errors });
+    res.status(500).json({ errors });
   }
 };
 

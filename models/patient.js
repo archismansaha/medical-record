@@ -7,6 +7,11 @@ const prescriptionSchema = require("./prescription");
 const patientSchema = new mongoose.Schema({
   healthID: {
     type: String,
+    required: true,
+  },
+  originalHealthID: {
+    type: String,
+    required: true
   },
   name: {
     firstName: {

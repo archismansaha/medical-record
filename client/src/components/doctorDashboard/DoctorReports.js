@@ -120,7 +120,7 @@ export default function DoctorReports(props) {
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{prescription.diagnosis}</TableCell>
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{prescription.procedureConducted
                                         }</TableCell>
-                                        <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{prescription.hospital.name}</TableCell>
+                                        <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{ prescription.hospital ? prescription.hospital.name : 'Abc Hospital' }</TableCell>
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>{formatDate(prescription.updatedAt)}</TableCell>
                                         <TableCell align="right" sx={{ fontSize: '1.1rem' }}>
                                             <Link to={`/doctor/prescription`} className="btn btn-primary"

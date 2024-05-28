@@ -1,4 +1,5 @@
 const Patient = require("../models/patient");
+const { generateAccessToken } = require("../utils/patientAccessToken");
 
 module.exports.preview_prescription = async (req, res) => {
   const id = req.params.id;
@@ -62,3 +63,15 @@ module.exports.get_medcine = async (req, res) => {
   res.status(200).json(formattedPrescriptions );
   
 };
+
+module.exports.reset_token = async (req, res) => {
+  try {
+    const patient = req.patient;
+    const newHealthID = generateAccessToken(new Date(), patient._id, patient.originalHealthID);
+    const updatedPatient = await Patient.findByIdAndUpdate(patient._id, { healthID: newHealthID }, { new: true });
+    res.status(200).json({ patient: updatedPatient });
+  } catch(err) {
+    console.log('Error while updating access token', err);
+    res.status(500).json({ error: "Something went wrong..." });
+  }
+}
