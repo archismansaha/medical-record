@@ -85,7 +85,7 @@ const PatientProfileSideBar = (props) => {
                 <img src={reports} alt="reports"></img>
               </div>
               <div className="font-poppins font-bold ml-4">
-                <h1>Reports</h1>
+                <h1>Token</h1>
               </div>
             </div>
           </Link>

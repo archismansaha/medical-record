@@ -256,7 +256,6 @@ const DoctorDashboard = (props) => {
               <input
                 placeholder="Health ID"
                 className="bg-bgsecondary rounded border-2 text-xl   pl-4  focus:outline-none"
-                type="number"
                 value={props.healthID}
                 onChange={(e) => {
                   props.setHealthID(e.target.value);

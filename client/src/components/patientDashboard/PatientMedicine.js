@@ -87,6 +87,18 @@ export default function PatientMedicine(props) {
     );
   }
 
+  if(medicines.length == 0) {
+    return (
+      <div
+        className="patient-medicine col-span-10"
+        style={{ padding: "5rem 4rem", width: "100%" }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: "500" }} gutterBottom>
+          No Medicines Found
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div
