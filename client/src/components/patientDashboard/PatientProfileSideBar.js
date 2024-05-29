@@ -7,7 +7,7 @@ import logoutimg from "../../assets/img/dashboard/logout.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-const apiUrl = "http://localhost:5000";
+const apiUrl = "https://medical-record-rxyo.onrender.com";
 
 const PatientProfileSideBar = (props) => {
   const navigate = useNavigate();
@@ -76,9 +76,9 @@ const PatientProfileSideBar = (props) => {
         </Link>
 
           <Link
-            to="/patient/reports"
-            onClick={() => setToggle("Reports")}
-            className={Toggle === "Reports" ? "text-gray-900" : "text-gray-400"}
+            to="/patient/token"
+            onClick={() => setToggle("token")}
+            className={Toggle === "token" ? "text-gray-900" : "text-gray-400"}
           >
             <div className="flex m-2 mt-6  ">
               <div className="w-6 ml-4  ">

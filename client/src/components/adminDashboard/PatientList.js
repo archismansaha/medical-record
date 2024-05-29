@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PatientListCompo from "./PatientListCompo";
 import axios from "axios"
-const apiUrl = 'http://localhost:5000'
+const apiUrl = 'https://medical-record-rxyo.onrender.com'
 const PatientList = (props) => {
   const navigate = useNavigate();
   const [patientList, setPatientList] = useState([]);

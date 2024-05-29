@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DoctorListCompo from "./DoctorListCompo";
-const apiUrl = 'http://localhost:5000'
+const apiUrl = 'https://medical-record-rxyo.onrender.com'
 
 const DoctorList = (props) => {
   const navigate = useNavigate();

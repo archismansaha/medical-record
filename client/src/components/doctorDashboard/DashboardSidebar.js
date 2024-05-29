@@ -11,7 +11,7 @@ import axios from "axios";
 const DashboardSidebar = (props) => {
   const navigate = useNavigate();
   const logout = async () => {
-    const res = await axios.get("http://localhost:5000" + "/logout", {
+    const res = await axios.get("https://medical-record-rxyo.onrender.com" + "/logout", {
       withCredentials: true,
       credentials: "include",
     });

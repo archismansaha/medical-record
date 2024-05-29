@@ -132,7 +132,7 @@ function App() {
             }
           />
           <Route
-            path="reports"
+            path="token"
             element={
               <PatientReports
                 setPrescriptionID={setPrescriptionID}
