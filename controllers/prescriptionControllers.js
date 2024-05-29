@@ -1,6 +1,6 @@
 const Patient = require("../models/patient");
 const Doctor = require("../models/doctor");
-
+const mongoose = require("mongoose");
 module.exports.add_prescription = async (req, res) => {
   try {
     const healthID = req.params.healthID;
@@ -89,10 +89,13 @@ module.exports.view_prescription2 = async (req, res) => {
     let patient = null;
     let flag = false;
     
-    const patients = await Patient.find();
-    patients.forEach(currPatient => {
+    const doctors = await Doctor.find();
+   
+    doctors.forEach(currPatient => {
+      console.log( currPatient.prescriptions)
       currPatient.prescriptions.forEach(pres => {
-        if (pres._id == prescriptionID) {
+        console.log(pres._id ," ",new mongoose.Types.ObjectId( prescriptionID)," ",pres._id == new mongoose.Types.ObjectId( prescriptionID)," ")
+        if (pres._id ==( prescriptionID)) {
           prescription = pres;
           patient = currPatient;
           flag = true;
@@ -101,6 +104,7 @@ module.exports.view_prescription2 = async (req, res) => {
       });
       if(flag) return; // Exit the function
     });
+    console.log(prescriptionID,prescription,patient);
     res.status(200).json({ prescription, patient });
   } catch (err) {
     console.log('Error while fetching prescriptions from doctor view', err)

@@ -11,7 +11,18 @@ const adminRoutes = require("./routes/adminRoutes");
 const logoutRoute = require("./routes/logoutRoute");
 const cors = require("cors");
 const app = express();
+const bodyParser = require('body-parser');
+const cloudinary = require('cloudinary').v2;
+try{
+  cloudinary.config({
+  cloud_name: 'dbctqt32w',
+  api_key: '339438147761498',
+  api_secret: 'JFRjerE6h--Hd1c88JHg5pNLFPk'
+});
+}catch(e){
+  console.log(e);
 
+}
 // dotenv.config({ path: "./config.env" });
 
 // app.use(cors({ origin: "http://localhost:3000", credentials: true}));
@@ -32,9 +43,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions))
-
+// app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const dbURI = process.env.DATABASE_URL;

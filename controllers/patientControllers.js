@@ -1,6 +1,6 @@
 const Patient = require("../models/patient");
 const { generateAccessToken } = require("../utils/patientAccessToken");
-
+//const fileupload=("../models/fileupload.js")
 module.exports.preview_prescription = async (req, res) => {
   const id = req.params.id;
   const healthID = req.patient.healthID;

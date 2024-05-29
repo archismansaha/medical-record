@@ -89,6 +89,20 @@ const PatientProfileSideBar = (props) => {
               </div>
             </div>
           </Link>
+          <Link
+            to="/patient/upload"
+            onClick={() => setToggle("upload")}
+            className={Toggle === "upload" ? "text-gray-900" : "text-gray-400"}
+          >
+            <div className="flex m-2 mt-6  ">
+              <div className="w-6 ml-4  ">
+                <img src={reports} alt="reports"></img>
+              </div>
+              <div className="font-poppins font-bold ml-4">
+                <h1>Upload Reports</h1>
+              </div>
+            </div>
+          </Link>
 
           <div className="p-4">
             <h1 className="font-poppins font-bold text-xl mt-4">Main menu</h1>

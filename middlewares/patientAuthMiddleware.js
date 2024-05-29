@@ -3,6 +3,7 @@ const Patient = require("../models/patient");
 
 const requirePatientAuth = (req, res, next) => {
   const token = req.cookies.jwt;
+  console.log(token)
   if (token) {
     jwt.verify(token, "SECRET", async (err, decodedToken) => {
       if (err) {
@@ -10,6 +11,7 @@ const requirePatientAuth = (req, res, next) => {
         res.status(401).send({ AuthError });
       } else {
         const patient = await Patient.findById(decodedToken.id);
+        console.log(decodedToken.id)
         req.patient = patient;
         next();
       }

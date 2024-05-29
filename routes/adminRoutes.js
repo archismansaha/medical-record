@@ -22,7 +22,7 @@ const router = Router();
 // router.get("/doctorlist",  view_doctorlist);
 // router.get("/patientlist", view_patientlist);
 
-router.delete("/deletedoctor/:id", requireAdminAuth, delete_doctor);
+router.delete("/deletedoctor/:id",  delete_doctor);
 router.delete("/deletepatient/:healthID", requireAdminAuth, delete_patient);
 router.get("/getadmin", requireAdminAuth, get_admin);
 router.get("/getdetails", getPatientsData);

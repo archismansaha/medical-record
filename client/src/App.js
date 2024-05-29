@@ -29,7 +29,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Page404 from "./pages/Page_404";
 import DoctorReports from "./components/doctorDashboard/DoctorReports";
-
+import PatientUpload from "./components/patientDashboard/Uploadprescription";
 
 function App() {
   const [doctorView, setDoctorView] = useState(false);
@@ -141,6 +141,16 @@ function App() {
               />
             }
           />
+          <Route
+          path="upload"
+          element={
+            <PatientUpload
+              setPrescriptionID={setPrescriptionID}
+              settoastCondition={settoastCondition}
+              setToastShow={setToastShow}
+            />
+          }
+        />
           <Route
             path="history"
             element={

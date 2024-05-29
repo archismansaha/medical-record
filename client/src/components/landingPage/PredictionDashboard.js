@@ -141,7 +141,7 @@ const ChronicKidneyDiease = () => {
             htmlFor="specificGravity"
             className="font-semibold w-[90%] max-w-sm mt-8"
           >
-            Resting Blood Pressure (in mm Hg)
+          SpecificGravity
           </label>
           <input
             type="number"
