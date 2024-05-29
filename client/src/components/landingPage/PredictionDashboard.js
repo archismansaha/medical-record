@@ -22,7 +22,7 @@ const ChronicKidneyDiease = () => {
         formData
       );
       setPredicted(true);
-      setResult(prediction.prediction);
+      setResult(prediction.data.prediction[0]);
     } catch (error) {
       setLoading(false);
       console.error(error.message);
