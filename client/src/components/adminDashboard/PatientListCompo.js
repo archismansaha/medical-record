@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import delete_btn from "../../assets/img/dashboard/delete.png";
-
+import axios from "axios"
 const PatientListCompo = (props) => {
   const navigate = useNavigate();
   const [dob, setDob] = useState("");
@@ -11,13 +11,17 @@ const PatientListCompo = (props) => {
   }, []);
 
   const deletePatient = async () => {
-    const res = await fetch(`/deletepatient/${props.healthID}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = res.json();
+    const res = await axios.delete(
+    
+    "https://medical-record-rxyo.onrender.com" + `/deletepatient/${props.healthID}`,
+    {
+      withCredentials: true,
+      credentials: "include",
+      crossDomain: true,
+    }
+  );
+
+    const data = res.data;
     if (data.AuthError) {
       props.settoastCondition({
         status: "info",
@@ -31,6 +35,8 @@ const PatientListCompo = (props) => {
       message: "Patient Deleted Successfuly!!!",
     });
     props.setToastShow(true);
+    props.setreload(true);
+    //navigate("/admin/patientslist");
   };
 
   return (

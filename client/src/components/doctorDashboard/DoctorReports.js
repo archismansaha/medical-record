@@ -83,7 +83,7 @@ export default function DoctorReports(props) {
     }
 
     return (
-        <div className="doctor-reports col-span-10 pt-10" style={{ backgroundColor: '#eee' }}>
+        <div className="doctor-reports col-span-10 pt-10" style={{ backgroundColor: '#eee', overflow: 'scroll'}}>
             <div style={{ width: '90%', margin: '0 auto' }}>
                 <Typography
                     variant="h4"
@@ -126,6 +126,7 @@ export default function DoctorReports(props) {
                                             <Link to={`/doctor/prescription`} className="btn btn-primary"
                                                 onClick={() => { 
                                                     props.setPrescriptionID(prescription._id); 
+                                                    
                                                     props.setDoctorView(true);
                                                 }}
                                             >

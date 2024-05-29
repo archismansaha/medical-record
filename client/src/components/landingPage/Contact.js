@@ -11,11 +11,12 @@ const Contact = (props) => {
   const sendEmail = (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log(form.current)
     emailjs.sendForm(
-      "service_ytpdnfv",
-      "template_sel0xjo",
+      "service_c2egofs",
+      "template_w6z8nhc",
       form.current,
-      "Qc4IEdSfGeohecLaR"
+      "RYAkGF-rIQR1L7B6T"
     );
     e.target.reset();
     setLoading(false);
@@ -49,12 +50,6 @@ const Contact = (props) => {
                   Reach us
                 </h1>
               </div>
-              <div className="">
-                <h1 className="font-bold font-poppins text-2xl mt-4 ">
-                  Email :
-                </h1>
-                <h1 className="font-poppins text-xl">admins@gmail.com</h1>
-              </div>
               <div>
                 <h1 className="font-bold font-poppins text-2xl mt-4 ">
                   Address :
@@ -63,6 +58,12 @@ const Contact = (props) => {
                   first floor, stark tower , near wall street, new york{" "}
                 </h2>
               </div>
+              <div className="">
+              <h1 className="font-bold font-poppins text-2xl mt-4 ">
+                Or 
+              </h1>
+              <h2 className="font-poppins text-xl"> Submit the form we will contact you</h2>
+            </div>
             </div>
           </div>
 

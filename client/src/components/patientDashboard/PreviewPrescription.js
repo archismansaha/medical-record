@@ -82,14 +82,16 @@ const PreviewPrescription = (props) => {
   useEffect(() => {
     const fetchPrescriptionData = async () => {
       try {
+        console.log("In data",props.prescriptionID,`${apiUrl}/prescription/${props.prescriptionID}`);
         const response = await axios.get(`${apiUrl}/prescription/${props.prescriptionID}`, {
           withCredentials: true,
           credentials: "include",
         });
+        console.log("In data",props.prescriptionID,response.data);
         setPrescription(response.data.prescription);
         setPatient(response.data.patient);
       } catch(err) {
-        console.log(err)
+        console.log("IN error", err)
       }
     }
 

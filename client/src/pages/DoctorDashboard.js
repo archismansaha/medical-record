@@ -106,12 +106,32 @@ const DoctorDashboard = (props) => {
     async function getpatient() {
       setLoading(true);
       if (props.healthID.length >1) {
-        let data =  await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{
+        try{
+        let data = null;
+        try{
+          data= await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{
           withCredentials:true,
           credentials: "include",
         });
-      
+      }
+      catch(e){
+        setLoading(false);
+        props.settoastCondition({
+          status: "error",
+          message: "This HealthID doesn't exist!!!",
+        });
+        props.setToastShow(true);
+      }
+      console.log("in search",data)
         data=data.data;
+        if(!data){
+          setLoading(false);
+          props.settoastCondition({
+            status: "error",
+            message: "This HealthID doesn't exist!!!",
+          });
+          props.setToastShow(true);
+        }
         if (data.patient.prescriptions) {
           setPrescriptions(data.patient.prescriptions.reverse());
         }
@@ -136,12 +156,22 @@ const DoctorDashboard = (props) => {
           setDob(convertDatetoString(patient.dob));
           setLoading(false);
         }
-        
+      }
+      catch(err){
+          setLoading(false);
+              props.settoastCondition({
+                status: "error",
+                message: "This HealthID doesn't exist!!!",
+              });
+              props.setToastShow(true);
+        }  
+      
       } else if (props.healthID.length === 0) {
         setLoading(false);
         setPatient({});
       }
       setLoading(false);
+      
     }
 
     getdoctor();
@@ -153,6 +183,7 @@ const DoctorDashboard = (props) => {
     e.preventDefault();
     setLoading(true);
     if (props.healthID.length >= 1) {
+      try{
       let data = await axios.get(`${apiUrl}/searchpatient/${props.healthID}`,{withCredentials:true});
     data=data.data
 
@@ -180,6 +211,14 @@ const DoctorDashboard = (props) => {
         setDob(convertDatetoString(patient.dob));
         setLoading(false);
       }
+    }catch(e){
+      setLoading(false);
+      props.settoastCondition({
+        status: "error",
+        message: "This HealthID doesn't exist!!!",
+      });
+      props.setToastShow(true)
+    }
 
     } else {
       props.settoastCondition({

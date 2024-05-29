@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import delete_btn from "../../assets/img/dashboard/delete.png";
-
+import axios from "axios";
 const DoctorListCompo = (props) => {
   const navigate = useNavigate();
+
+
   const deleteDoctor = async () => {
-    const res = await fetch(`/deletedoctor/${props.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = res.json();
+    
+    let  res=null;
+    try{
+    res = await axios.delete(
+    
+      "https://medical-record-rxyo.onrender.com" + `/deletedoctor/${props.id}`,
+      {
+        withCredentials: true,
+        credentials: "include",
+        crossDomain: true,
+      }
+    );
+    const data = res.data;
     if (data.AuthError) {
       props.settoastCondition({
         status: "info",
@@ -20,11 +28,24 @@ const DoctorListCompo = (props) => {
       props.setToastShow(true);
       navigate("/");
     }
+    props.setreload(true);
     props.settoastCondition({
       status: "success",
       message: "Doctor Deleted Successfuly!!!",
     });
     props.setToastShow(true);
+   
+  }
+  catch (err){
+    console.log(err);
+    props.settoastCondition({
+      status: "Error",
+      message: "Some error occurred!!!",
+    });
+    props.setToastShow(true);
+  }
+    
+
   };
 
   return (

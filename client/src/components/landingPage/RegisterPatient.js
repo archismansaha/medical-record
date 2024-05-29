@@ -3,9 +3,10 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import plus_logo from "../../assets/img/dashboard/add2_pbl.png";
 import minus_logo from "../../assets/img/dashboard/minus2_pbl.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 import axios from "axios"
+import { Button } from "@mui/material";
 
 export default function Register(props) {
   const navigate = useNavigate();
@@ -166,12 +167,11 @@ export default function Register(props) {
                 For register as doctor contact to admin with you all information
               </h1>
               <div className="border-4 p-4 mx-auto w-1/2 rounded-xl mt-8  ">
-                <h1>send your all information</h1>
+                <h1>send us a message in contact use page</h1>
                 <div>
-                  <div className=" rounded-xl p-4 mt-4 ">
-                    <h1 className="font-bold">Email :</h1>
-                    <p>admin@gmail.com</p>
-                  </div>
+                <div className="mt-2 mb-2 bg-primary lg:py-2 lg:px-3 rounded font-semibold font-poppins shadow-sm hover:bg-bgsecondary py-1 px-2 mr-2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Link to="/contact">Contact Us</Link>
+              </div>
                 </div>
               </div>
             </div>

@@ -6,7 +6,7 @@ const apiUrl = 'https://medical-record-rxyo.onrender.com'
 const DoctorList = (props) => {
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = useState([]);
-
+  const [reload,setreload]=useState(false);
   useEffect(() => {
     async function fetchDoctorList() {
       const res = await fetch(apiUrl+"/doctorlist", {
@@ -26,7 +26,7 @@ const DoctorList = (props) => {
       }
     }
     fetchDoctorList();
-  }, []);
+  }, [reload]);
 
   return (
     <div className="m-4 mt-4 font-poppins col-span-10">
@@ -47,6 +47,7 @@ const DoctorList = (props) => {
           doctorList.map((doctor, index) => {
             return (
               <DoctorListCompo
+              setreload={setreload}
                 key={doctor._id}
                 doctor={doctor}
                 index={index}
