@@ -12,7 +12,7 @@ const DoctorListCompo = (props) => {
     try{
     res = await axios.delete(
     
-      "https://medical-record-rxyo.onrender.com" + `/deletedoctor/${props.id}`,
+      "http://localhost:5000" + `/deletedoctor/${props.id}`,
       {
         withCredentials: true,
         credentials: "include",

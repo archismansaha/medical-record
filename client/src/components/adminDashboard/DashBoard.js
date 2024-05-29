@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://medical-record-rxyo.onrender.com/getdetails', { withCredentials: true })
+    axios.get('http://localhost:5000/getdetails', { withCredentials: true })
       .then(response => {
         setData(response.data);
       })

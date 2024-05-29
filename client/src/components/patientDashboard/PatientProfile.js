@@ -10,7 +10,7 @@ import healthid from "../../assets/img/dashboard/patient-profile-healthid.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const apiUrl = "https://medical-record-rxyo.onrender.com";
+const apiUrl = "http://localhost:5000";
 const PatientProfile = (props) => {
   const navigate = useNavigate();
   const [patient, setPatient] = useState({

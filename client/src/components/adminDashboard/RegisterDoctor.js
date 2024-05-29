@@ -7,7 +7,7 @@ import ReactLoading from "react-loading";
 import axios from "axios"
 
 export default function Register(props) {
-  const apiUrl = 'https://medical-record-rxyo.onrender.com'
+  const apiUrl = 'http://localhost:5000'
 
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);

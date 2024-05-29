@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import eye from '../../assets/img/dashboard/eye.png'
-const apiUrl = 'https://medical-record-rxyo.onrender.com';
+const apiUrl = 'http://localhost:5000';
 
 export default function DoctorReports(props) {
     const navigate = useNavigate();

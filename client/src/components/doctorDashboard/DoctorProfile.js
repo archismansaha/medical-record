@@ -64,7 +64,7 @@ const DoctorProfile = (props) => {
 
   useEffect(() => {
     async function getdoctor() {
-      const res = await fetch("https://medical-record-rxyo.onrender.com"+"/getdoctor", {
+      const res = await fetch("http://localhost:5000"+"/getdoctor", {
         withCredentials: true,
         credentials: "include",
       });

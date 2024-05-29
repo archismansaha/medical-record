@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 import axios from "axios";
-const apiUrl = "https://medical-record-rxyo.onrender.com";
+const apiUrl = "http://localhost:5000";
 
 
 const AddNewDiagnosis = (props) => {
@@ -93,7 +93,7 @@ const AddNewDiagnosis = (props) => {
 
   // useEffect(() => {
   //   async function getDoctor() {
-  //     const response = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
+  //     const response = await axios.get(`http://localhost:5000/getdoctor`, {
   //       withCredentials: true,
   //       credentials: "include",
   //     });
@@ -127,7 +127,7 @@ const AddNewDiagnosis = (props) => {
 
     // setLoading(true);
     const response = await axios.post(
-      `https://medical-record-rxyo.onrender.com/prescription/${props.healthID}`,
+      `http://localhost:5000/prescription/${props.healthID}`,
         prescription,
       {
         withCredentials: true,
@@ -137,7 +137,7 @@ const AddNewDiagnosis = (props) => {
     );
 
     const data = response.data;
-    // const res = await fetch(`https://medical-record-rxyo.onrender.com/prescription/${props.healthID}`, {
+    // const res = await fetch(`http://localhost:5000/prescription/${props.healthID}`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",

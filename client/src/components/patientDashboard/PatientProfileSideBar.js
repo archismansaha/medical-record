@@ -7,7 +7,7 @@ import logoutimg from "../../assets/img/dashboard/logout.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-const apiUrl = "https://medical-record-rxyo.onrender.com";
+const apiUrl = "http://localhost:5000";
 
 const PatientProfileSideBar = (props) => {
   const navigate = useNavigate();

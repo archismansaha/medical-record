@@ -11,7 +11,7 @@ import axios from "axios";
 import Dashboard from "../components/doctorDashboard/Dashboard";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 const DoctorDashboard = (props) => {
-  const apiUrl = "https://medical-record-rxyo.onrender.com";
+  const apiUrl = "http://localhost:5000";
 
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ const DoctorDashboard = (props) => {
         navigate("/");
       }
 
-    //  let data = await axios.get(`https://medical-record-rxyo.onrender.com/getdoctor`, {
+    //  let data = await axios.get(`http://localhost:5000/getdoctor`, {
     //     withCredentials: true,
     //     credentials: "include",
     //     crossDomain: true,
@@ -122,7 +122,7 @@ const DoctorDashboard = (props) => {
         try{
         let data = null;
         try{
-          data= await axios.get("https://medical-record-rxyo.onrender.com"+`/searchpatient/${props.healthID}`,{
+          data= await axios.get("http://localhost:5000"+`/searchpatient/${props.healthID}`,{
           withCredentials:true,
           credentials: "include",
         });
@@ -202,7 +202,7 @@ const DoctorDashboard = (props) => {
     data=data.data
     console.log(data)
     if(data){ 
-      const reponsefiles = await axios.get(`https://medical-record-rxyo.onrender.com/file/${data.patient._id}`, {
+      const reponsefiles = await axios.get(`http://localhost:5000/file/${data.patient._id}`, {
       withCredentials: true,
       credentials: "include",
       crossDomain: true,

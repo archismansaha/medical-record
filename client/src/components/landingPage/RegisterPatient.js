@@ -90,7 +90,7 @@ export default function Register(props) {
       setLoading(true);
       e.preventDefault();
       const data = await axios.post(
-        "https://medical-record-rxyo.onrender.com/register/patient",
+        "http://localhost:5000/register/patient",
         patient,
         {
           withCredentials: true,

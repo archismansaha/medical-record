@@ -13,7 +13,7 @@ const PatientListCompo = (props) => {
   const deletePatient = async () => {
     const res = await axios.delete(
     
-    "https://medical-record-rxyo.onrender.com" + `/deletepatient/${props.healthID}`,
+    "http://localhost:5000" + `/deletepatient/${props.healthID}`,
     {
       withCredentials: true,
       credentials: "include",

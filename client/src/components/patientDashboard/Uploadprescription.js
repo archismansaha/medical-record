@@ -28,7 +28,7 @@ function App(props) {
   const fetchFiles = async () => {
     try {
        
-      const response = await axios.get('https://medical-record-rxyo.onrender.com/files',{withCredentials:true,credential: 'include'}); // Adjust the endpoint as per your server route
+      const response = await axios.get('http://localhost:5000/files',{withCredentials:true,credential: 'include'}); // Adjust the endpoint as per your server route
       console.log(response)
       setFiles(response.data.files);
     } catch (error) {
@@ -53,7 +53,7 @@ function App(props) {
     formDataObj.append('file', formData.file);
 
     try {
-      await axios.post('https://medical-record-rxyo.onrender.com/upload', formDataObj, {
+      await axios.post('http://localhost:5000/upload', formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

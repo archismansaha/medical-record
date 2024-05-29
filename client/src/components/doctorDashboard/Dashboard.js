@@ -7,7 +7,7 @@ import AdvicesChart from './AdvicesChart';
 
 const DoctorDashboard = () => {
   const [data, setData] = useState([]);
-  const apiUrl = "https://medical-record-rxyo.onrender.com";
+  const apiUrl = "http://localhost:5000";
 
   useEffect(() => {
     const fetchData = async () => {

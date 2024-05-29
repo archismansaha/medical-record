@@ -4,8 +4,8 @@ import Footer from "../landingPage/Footer";
 import doctor_profile from "../../assets/img/dashboard/doctor2.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
- const apiUrl = "https://medical-record-rxyo.onrender.com";
-//const apiUrl = "https://medical-record-rxyo.onrender.com";
+ const apiUrl = "http://localhost:5000";
+//const apiUrl = "http://localhost:5000";
 
 const PreviewPrescriptionDoctorView = (props) => {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const PreviewPrescriptionDoctorView = (props) => {
   useEffect(() => {
     async function fetchPrescriptionData() {
       const data = await axios.get(
-        "https://medical-record-rxyo.onrender.com" +
+        "http://localhost:5000" +
         `/viewprescription/${props.healthID}/${props.prescriptionID}`,
         { withCredentials: true, credentials: "include" }
       );

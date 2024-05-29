@@ -4,7 +4,7 @@ import PatientHistoryCompo from "./PatientHistoryCompo";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-const apiUrl = "https://medical-record-rxyo.onrender.com";
+const apiUrl = "http://localhost:5000";
 const PatientHistory = (props) => {
   const navigate = useNavigate();
   const [dob, setDob] = useState("01/01/2006");
